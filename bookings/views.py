@@ -10,5 +10,3 @@ def booking_view(request):
     else:
         form = BookingForm()
     return render(request, 'bookings/booking_form.html', {'form': form})
-def contacts_view(request):
-    return render(request, 'contacts.html')
