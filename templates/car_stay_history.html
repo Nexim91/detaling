@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}История пребывания автомобиля{% endblock %}
+
+{% block content %}
+<h2>История пребывания автомобиля {{ car.make }} {{ car.model }} ({{ car.license_plate }})</h2>
+<a href="{% url 'accounts:add_car_stay' car.id %}" class="btn btn-primary mb-3">Добавить запись о пребывании</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Дата заезда</th>
+      <th>Дата выезда</th>
+      <th>Статус</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for stay in stays %}
+    <tr>
+      <td>{{ stay.check_in_date }}</td>
+      <td>{{ stay.check_out_date|default:"-" }}</td>
+      <td>{{ stay.status }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">Записей не найдено.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'accounts:car_list' %}" class="btn btn-secondary">Назад к автомобилям</a>
+{% endblock %}

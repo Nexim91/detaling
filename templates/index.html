@@ -112,7 +112,7 @@
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="ml-auto">
-                            <a class="btn btn-custom" href="#">Get Appointment</a>
+                            <a class="btn btn-custom" href="#service">Get Appointment</a>
                         </div>
                     </div>
                 </nav>
@@ -135,7 +135,7 @@
                             <p>
                                 Опытные сотрудники
                             </p>
-                            <a class="btn btn-custom" href="">узнать больше</a>
+                            <a class="btn btn-custom" href="#service">узнать больше</a>
                         </div>
                     </div>
                     <div class="carousel-item">
@@ -161,7 +161,7 @@
                             <p>
                                 уборочка на 5+
                             </p>
-                            <a class="btn btn-custom" href="">Explore More</a>
+                            <a class="btn btn-custom" href="#service">Explore More</a>
                         </div>
                     </div>
                 </div>
@@ -194,7 +194,7 @@
                                 <li><i class="far fa-check-circle"></i>Химчистка кузова</li>
                                 <li><i class="far fa-check-circle"></i>Покраска авто</li>
                             </ul>
-                            <a class="btn btn-custom" href="">узнать больше</a>
+                            <a class="btn btn-custom" href="#service">узнать больше</a>
                         </div>
                     </div>
                 </div>
@@ -204,7 +204,7 @@
 
 
         <!-- Service Start -->
-        <div class="service">
+        <div class="service" id="service">
             <div class="container">
                 <div class="section-header text-center">
                     <p>Почему мы?</p>
@@ -396,68 +396,69 @@
 <!-- Location End -->
 
 
-        <!-- Team Start -->
-        <div class="team">
-            <div class="container">
-                <div class="section-header text-center">
-                    <p>Наша команда</p>
-                    <h2>Дейтелеры и Маляры</h2>
+<!-- Team Start -->
+<div class="team">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>Наша команда</p>
+            <h2>Дейтелеры и Маляры</h2>
+        </div>
+        <div class="row justify-content-center"> <!-- Добавлено центрирование строки -->
+            <div class="col-lg-3 col-md-6 mb-4"> <!-- Добавлен отступ снизу -->
+                <div class="team-item text-center"> <!-- Центрируем содержимое -->
+                    <div class="team-img mx-auto"> <!-- Центрируем изображение -->
+                        <img src="{% static 'img/team-1.jpg' %}" alt="Team Image" class="img-fluid">
+                    </div>
+                    <div class="team-text">
+                        <h2>Рузанов Юрий</h2>
+                        <p>Дейтлер</p>
+                        <div class="team-social justify-content-center"> <!-- Центрируем соц.иконки -->
+                            <a href=""><i class="fab fa-twitter"></i></a>
+                            <a href=""><i class="fab fa-facebook-f"></i></a>
+                            <a href=""><i class="fab fa-linkedin-in"></i></a>
+                            <a href=""><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="team-item">
-                            <div class="team-img">
-                                    <img src="{% static 'img/team-1.jpg' %}" alt="Team Image">
-                            </div>
-                            <div class="team-text">
-                                <h2>Рузанов Юрий</h2>
-                                <p>Дейтлер</p>
-                                <div class="team-social">
-                                    <a href=""><i class="fab fa-twitter"></i></a>
-                                    <a href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                    <a href=""><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="team-item text-center">
+                    <div class="team-img mx-auto">
+                        <img src="{% static 'img/team-2.jpg' %}" alt="Team Image" class="img-fluid">
+                    </div>
+                    <div class="team-text">
+                        <h2>Алексей Кобейкин</h2>
+                        <p>Автомаляр</p>
+                        <div class="team-social justify-content-center">
+                            <a href=""><i class="fab fa-twitter"></i></a>
+                            <a href=""><i class="fab fa-facebook-f"></i></a>
+                            <a href=""><i class="fab fa-linkedin-in"></i></a>
+                            <a href=""><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="{% static 'img/team-2.jpg' %}" alt="Team Image">
-                            </div>
-                            <div class="team-text">
-                                <h2>Алексей Кобейкин</h2>
-                                <p>Автомаляр</p>
-                                <div class="team-social">
-                                    <a href=""><i class="fab fa-twitter"></i></a>
-                                    <a href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                    <a href=""><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="team-item text-center">
+                    <div class="team-img mx-auto">
+                        <img src="{% static 'img/team-3.jpg' %}" alt="Team Image" class="img-fluid">
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="{% static 'img/team-3.jpg' %}" alt="Team Image">
-                            </div>
-                            <div class="team-text">
-                                <h2>Михаил Ручкин</h2>
-                                <p>Автомаляр</p>
-                                <div class="team-social">
-                                    <a href=""><i class="fab fa-twitter"></i></a>
-                                    <a href=""><i class="fab fa-facebook-f"></i></a>
-                                    <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                    <a href=""><i class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
+                    <div class="team-text">
+                        <h2>Михаил Ручкин</h2>
+                        <p>Автомаляр</p>
+                        <div class="team-social justify-content-center">
+                            <a href=""><i class="fab fa-twitter"></i></a>
+                            <a href=""><i class="fab fa-facebook-f"></i></a>
+                            <a href=""><i class="fab fa-linkedin-in"></i></a>
+                            <a href=""><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<!-- Team End -->
         <!-- Team End -->
         
         
@@ -677,5 +678,6 @@
 
             <!-- Template Javascript -->
             <script src="{% static 'js/main.js' %}"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     </body>
 </html>

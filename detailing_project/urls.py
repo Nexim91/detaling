@@ -24,6 +24,8 @@ urlpatterns = [
     path('', include('services.urls')),
     path('booking/', include('bookings.urls')),
     path('portfolio/', include('portfolio.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
