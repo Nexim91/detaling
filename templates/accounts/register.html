@@ -3,15 +3,15 @@
 
 {% block title %}Регистрация{% endblock %}
 
-{% block extra_head %}{% endblock %}
+{% block extra_head %}
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+{% endblock %}
 
 {% block content %}
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-
   <div class="container">
     <div class="frame">
       <div class="nav">
-        <ul class"links">
+        <ul class="links">
           <li class="signin-inactive"><a href="{% url 'login' %}" class="btn">Вход</a></li>
           <li class="signup-active"><a class="btn">Регистрация</a></li>
         </ul>
