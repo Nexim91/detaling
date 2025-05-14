@@ -5,24 +5,11 @@
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}Pro Detailing{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" href="/">Pro Detailing</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Главная</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'service_html' %}">Услуги</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'portfolio' %}">Портфолио</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'booking' %}">Записаться</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'contacts' %}">Контакты</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+
 
 <main class="container mt-4">
   {% block content %}
@@ -33,8 +20,8 @@
   &copy; 2025 Pro Detailing
 </footer>
 
-<script src="{% static 'js/waypoints.min.js' %}"></script>
-<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/login.js' %}"></script>
+
 <!-- Другие скрипты -->
 </body>
 </html>
