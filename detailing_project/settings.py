@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'portfolio',
     'bot',
     'accounts',
+    'cart',
+    'pricing'
     
 ]
 
