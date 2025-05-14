@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}История пребывания автомобиля{% endblock %}
+{% block content %}
+<h2>История пребывания автомобиля</h2>
+<ul>
+  {% for stay in stays %}
+  <li>{{ stay.status }} с {{ stay.check_in_date }} по {{ stay.check_out_date|default:"..." }}</li>
+  {% empty %}
+  <li>История пребывания отсутствует.</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'accounts:add_car_stay' car.id %}">Добавить пребывание</a>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Вход{% endblock %}
+
+{% block extra_head %}{% endblock %}
+
+{% block content %}
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+  <div class="container">
+    <div class="frame">
+      <div class="nav">
+        <ul class"links">
+          <li class="signin-active"><a class="btn">Вход</a></li>
+          <li class="signup-inactive"><a href="{% url 'accounts:register' %}" class="btn">Регистрация</a></li>
+        </ul>
+      </div>
+      <div ng-app ng-init="checked = false">
+        <form class="form-signin" action="" method="post" name="form">
+          {% csrf_token %}
+          {% if form.errors %}
+            <div class="form-errors">
+              <ul>
+                {% for field in form %}
+                  {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+          <label for="username">Имя пользователя</label>
+          <input class="form-styling" type="text" name="username" placeholder="" value="{{ form.username.value|default_if_none:'' }}"/>
+          <label for="password">Пароль</label>
+          <input class="form-styling" type="password" name="password" placeholder=""/>
+          <input type="checkbox" id="checkbox" name="remember"/>
+          <label for="checkbox" ><span class="ui"></span>Оставаться в системе</label>
+          <div class="btn-animate">
+            <button type="submit" class="btn-signin">Войти</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
