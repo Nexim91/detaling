@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="container mt-4">
-  <h2 class="mb-4">Профиль пользователя</h2>
+  <h2 class="mb-4 text-center">Профиль пользователя</h2>
 
   {% if messages %}
   <div>
@@ -18,96 +18,67 @@
   </div>
   {% endif %}
 
-  <!-- Новый блок интерактивного дашборда -->
-  <div class="card mb-4">
-    <div class="card-header">
-      <h4>Дашборд услуг по детейлингу</h4>
-    </div>
-    <div class="card-body">
-      <canvas id="serviceHistoryChart" width="400" height="150"></canvas>
-      <div id="reminders" class="mt-3">
-        <h5>Напоминания</h5>
-        <ul>
-          {% for reminder in reminders %}
-          <li>{{ reminder }}</li>
-          {% empty %}
-          <li>Нет активных напоминаний</li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div id="currentOrders" class="mt-3">
-        <h5>Текущие заказы</h5>
-        <ul>
-          {% for order in current_orders %}
-          <li>{{ order.status }} - {{ order.service_name }} ({{ order.date }})</li>
-          {% empty %}
-          <li>Нет текущих заказов</li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
+  <div class="profile-section profile-info">
+    <p><strong>Имя:</strong> {{ profile.first_name }}</p>
+    <p><strong>Фамилия:</strong> {{ profile.last_name }}</p>
+    <p><strong>Телефон:</strong> {{ profile.phone }}</p>
+    <p><strong>Email:</strong> {{ profile.email }}</p>
+    {% if profile.date_joined %}
+    <p><strong>Дата регистрации:</strong> {{ profile.date_joined|date:"d.m.Y" }}</p>
+    {% endif %}
+    {% if profile.last_login %}
+    <p><strong>Последний вход:</strong> {{ profile.last_login|date:"d.m.Y H:i" }}</p>
+    {% endif %}
   </div>
 
-  <div class="card mb-4">
-    <div class="card-body">
-      <p><strong>Имя:</strong> {{ profile.first_name }}</p>
-      <p><strong>Фамилия:</strong> {{ profile.last_name }}</p>
-      <p><strong>Телефон:</strong> {{ profile.phone }}</p>
-      <p><strong>Email:</strong> {{ profile.email }}</p>
-      {% if profile.date_joined %}
-      <p><strong>Дата регистрации:</strong> {{ profile.date_joined|date:"d.m.Y" }}</p>
-      {% endif %}
-      {% if profile.last_login %}
-      <p><strong>Последний вход:</strong> {{ profile.last_login|date:"d.m.Y H:i" }}</p>
-      {% endif %}
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <a href="{% url 'accounts:edit_profile' %}" class="btn btn-secondary">Редактировать профиль</a>
-    <a href="{% url 'accounts:register' %}" class="btn btn-info">Регистрация</a>
+  <div class="btn-group d-flex justify-content-center mb-3">
+    <a href="{% url 'accounts:edit_profile' %}" class="btn btn-secondary mr-2">Редактировать профиль</a>
     <form method="post" action="{% url 'logout' %}" style="display:inline;">
       {% csrf_token %}
       <button type="submit" class="btn btn-danger">Выйти</button>
     </form>
   </div>
 
-  <h3 class="mb-3">Автомобили</h3>
-  {% if cars %}
-  <ul class="list-group mb-3">
-    {% for car in cars %}
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      <a href="{% url 'accounts:edit_car' car.id %}">{{ car.make }} {{ car.model }} ({{ car.license_plate }})</a>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p>Автомобили не найдены.</p>
-  {% endif %}
-  <a href="{% url 'accounts:add_car' %}" class="btn btn-primary">Добавить автомобиль</a>
-</div>
+  <div class="profile-section">
+    <h4>Автомобили</h4>
+    {% if cars %}
+    <ul class="list-group">
+      {% for car in cars %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{% url 'accounts:edit_car' car.id %}">{{ car.make }} {{ car.model }} ({{ car.license_plate }})</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>Автомобили не найдены.</p>
+    {% endif %}
+    <a href="{% url 'accounts:add_car' %}" class="btn btn-primary mt-3">Добавить автомобиль</a>
+  </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  const ctx = document.getElementById('serviceHistoryChart').getContext('2d');
-  const serviceHistoryChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: JSON.parse('{{ service_history_dates|escapejs }}'),
-      datasets: [{
-        label: 'Количество услуг',
-        data: JSON.parse('{{ service_history_counts|escapejs }}'),
-        backgroundColor: 'rgba(54, 162, 235, 0.6)'
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          precision: 0
-        }
-      }
-    }
-  });
-</script>
+  <div class="profile-section">
+    <h4>Статистика покупок</h4>
+    <p><strong>Всего заказов:</strong> {{ total_orders }}</p>
+    <p><strong>Общая сумма потраченных средств:</strong> {{ total_spent }} ₽</p>
+
+    <h5>История заказов</h5>
+    {% if orders %}
+      <ul class="order-list">
+        {% for order in orders %}
+          <li>
+            Заказ №{{ order.id }} от {{ order.created_at|date:"d.m.Y H:i" }}:
+            <ul class="order-items-list">
+              {% for item in order.items.all %}
+                <li>{{ item.service.name }} - Количество: {{ item.quantity }} - Цена: {{ item.service.price }} ₽</li>
+              {% empty %}
+                <li>Позиции заказа отсутствуют.</li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Заказы отсутствуют.</p>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}

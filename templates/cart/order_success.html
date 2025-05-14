@@ -1,0 +1,22 @@
+{% extends "pricing/base/base_price.html" %}
+{% block title %}Заказ оформлен{% endblock %}
+
+{% block page_header_title %}Спасибо за ваш заказ{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3>Ваш заказ №{{ order.id }} успешно оформлен.</h3>
+    <p>Мы свяжемся с вами в ближайшее время.</p>
+
+    <h4>Состав заказа:</h4>
+    <ul>
+        {% for item in order.items.all %}
+            <li>{{ item.service.name }} - Количество: {{ item.quantity }} - Цена за единицу: {{ item.service.price }} ₽</li>
+        {% empty %}
+            <li>Заказ пуст.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'pricing:price_uslugi' %}" class="btn btn-primary">Вернуться к услугам</a>
+</div>
+{% endblock %}

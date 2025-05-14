@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'portfolio',
     'bot',
     'accounts',
-    'pricing'
+    'pricing',
+    'cart'
 ]
 
 MIDDLEWARE = [

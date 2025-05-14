@@ -1,0 +1,31 @@
+{% extends "pricing/base/base_price.html" %}
+{% block title %}Корзина{% endblock %}
+
+{% block page_header_title %}Ваша корзина{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3>Товары в корзине</h3>
+    {% if items %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Услуга</th>
+                <th>Количество</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.service.name }}</td>
+                <td>{{ item.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'cart:checkout' %}" class="btn btn-primary">Оформить заказ</a>
+    {% else %}
+    <p>Ваша корзина пуста.</p>
+    {% endif %}
+</div>
+{% endblock %}

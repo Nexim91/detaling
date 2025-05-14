@@ -26,9 +26,9 @@
                             <li><i class="far fa-check-circle"></i>{{ service.description }}</li>
                         </ul>
                     </div>
-                    <div class="price-footer">
-                        <a class="btn btn-custom" href="#">Заказать</a>
-                    </div>
+            <div class="price-footer">
+                <a class="btn btn-custom" href="{% url 'cart:add_to_cart' service.id %}">Добавить в корзину</a>
+            </div>
                 </div>
             </div>
             {% empty %}

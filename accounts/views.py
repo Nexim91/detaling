@@ -8,6 +8,8 @@ from accounts.forms_new import UserRegistrationForm
 from django.utils.timezone import now
 from collections import Counter
 from datetime import timedelta
+from cart.models import Order, OrderItem
+from django.db.models import Sum, F
 
 @login_required
 def profile_view(request):
@@ -43,6 +45,28 @@ def profile_view(request):
             'date': stay.check_in_date.strftime('%d.%m.%Y')
         })
 
+    # Статистика покупок пользователя
+    orders = Order.objects.filter(user=user).order_by('-created_at')
+    total_orders = orders.count()
+    total_spent = OrderItem.objects.filter(order__in=orders).aggregate(
+        total=Sum(F('quantity') * F('service__price'))
+    )['total'] or 0
+
+    from django.db.models import Count
+    # Подсчет покупок по категориям услуг
+    purchase_categories = OrderItem.objects.filter(order__user=user).values('service__category').annotate(count=Count('id'))
+
+    # Детальная статистика покупок: услуга, дата покупки, цена
+    purchase_details = OrderItem.objects.filter(order__user=user).values(
+        'service__name',
+        'order__created_at',
+        'service__price',
+        'quantity'
+    ).order_by('-order__created_at')
+
+    # Добавим детальные позиции заказов для отображения в профиле
+    order_items = OrderItem.objects.filter(order__user=user).select_related('service', 'order').order_by('-order__created_at')
+
     context = {
         'profile': profile,
         'cars': cars,
@@ -50,6 +74,12 @@ def profile_view(request):
         'current_orders': current_orders,
         'service_history_dates': service_history_dates,
         'service_history_counts': service_history_counts,
+        'orders': orders,
+        'total_orders': total_orders,
+        'total_spent': total_spent,
+        'purchase_categories': purchase_categories,
+        'purchase_details': purchase_details,
+        'order_items': order_items,
     }
     return render(request, 'accounts/profile.html', context)
 
