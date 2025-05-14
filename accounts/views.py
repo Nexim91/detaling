@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from .models import UserProfile, Car, CarStay
 from .forms import UserProfileForm, CarForm, CarStayForm
 from django.contrib.auth.models import User
+from django.contrib.auth import login
+from accounts.forms_new import UserRegistrationForm
 
 @login_required
 def profile_view(request):
@@ -14,6 +16,17 @@ def profile_view(request):
         profile.save()
     cars = profile.cars.all()
     return render(request, 'accounts/profile.html', {'profile': profile, 'cars': cars})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('accounts:profile')
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'accounts/register.html', {'form': form})
 
 @login_required
 def edit_profile(request):
