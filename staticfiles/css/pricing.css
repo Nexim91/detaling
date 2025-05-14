@@ -1,0 +1,72 @@
+/* Pricing page custom styles for better readability and responsiveness */
+
+.price-item {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+}
+
+.price-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.price-header h3 {
+    font-weight: 700;
+    color: #E81C2E;
+    margin-bottom: 10px;
+}
+
+.price-header h2 {
+    font-size: 2.5rem;
+    color: #202C45;
+}
+
+.price-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.price-body ul li {
+    font-size: 1rem;
+    color: #202C45;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.price-body ul li i {
+    color: #E81C2E;
+    margin-right: 8px;
+}
+
+.price-footer .btn-custom {
+    background-color: #E81C2E;
+    color: #fff;
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.price-footer .btn-custom:hover {
+    background-color: #202C45;
+    color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .price-header h2 {
+        font-size: 2rem;
+    }
+    .price-item {
+        padding: 15px;
+    }
+    .price-body ul li {
+        font-size: 0.9rem;
+    }
+}
