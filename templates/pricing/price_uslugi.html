@@ -1,28 +1,9 @@
-{% extends "base.html" %}
+{% extends "pricing/base/base_price.html" %}
 {% block title %}Прайс и услуги{% endblock %}
 
-{% load static %}
-{% block extra_head %}
-<link href="{% static 'css/pricing.css' %}" rel="stylesheet">
-{% endblock %}
+{% block page_header_title %}Прайс и услуги{% endblock %}
 
 {% block content %}
-<!-- Page Header Start -->
-<div class="page-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h2>Прайс и услуги</h2>
-            </div>
-            <div class="col-12">
-                <a href="{% url 'home' %}">Главная</a>
-                <a href="{% url 'pricing:price_uslugi' %}">Прайс и услуги</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Page Header End -->
-
 <!-- Price Start -->
 <div class="price">
     <div class="container">

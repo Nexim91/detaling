@@ -26,10 +26,13 @@
   {% block extra_head %}{% endblock %}
 </head>
 <body>
+{% include "includes/_header.html" %}
 
-<main class="container mt-4">
-  {% block content %}
-  {% endblock %}
+<main>
+  <div class="container mt-4">
+    {% block content %}
+    {% endblock %}
+  </div>
 </main>
 
 <footer class="bg-dark text-white text-center py-3 mt-5">

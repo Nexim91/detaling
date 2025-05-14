@@ -1,0 +1,215 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Прайс и услуги{% endblock %}</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free Website Template" name="keywords">
+        <meta content="Free Website Template" name="description">
+
+        <!-- Favicon -->
+        <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+        
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="{% static 'lib/flaticon/font/flaticon.css' %}" rel="stylesheet">
+        <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+        <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- Top Bar Start -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="logo">
+                            <a href="{% url 'home' %}">
+                                <h1>Авто<span>Люкс</span></h1>
+                                <!-- <img src="{% static 'img/logo.jpg' %}" alt="Logo"> -->
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-7 d-none d-lg-block">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="top-bar-item">
+                                    <div class="top-bar-icon">
+                                        <i class="far fa-clock"></i>
+                                    </div>
+                                    <div class="top-bar-text">
+                                        <h3>Рабочие часы</h3>
+                                        <p>Пн - Пт, 8:00 - 9:00</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="top-bar-item">
+                                    <div class="top-bar-icon">
+                                        <i class="fa fa-phone-alt"></i>
+                                    </div>
+                                    <div class="top-bar-text">
+                                        <h3>Наш номер</h3>
+                                        <p>+012 345 6789</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="top-bar-item">
+                                    <div class="top-bar-icon">
+                                        <i class="far fa-envelope"></i>
+                                    </div>
+                                    <div class="top-bar-text">
+                                        <h3>Наш Email</h3>
+                                        <p>info@example.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Top Bar End -->
+
+        <!-- Nav Bar Start -->
+        <div class="nav-bar">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+                    <a href="#" class="navbar-brand">МЕНЮ</a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto">
+                            <a href="{% url 'home' %}" class="nav-item nav-link">Главная</a>
+                            <a href="{% url 'about' %}" class="nav-item nav-link">О нас</a>
+                            <a href="{% url 'service_html' %}" class="nav-item nav-link">Наши услуги</a>
+                            <a href="{% url 'price_redirect' %}" class="nav-item nav-link active">Прайс</a>
+                            <a href="{% url 'location' %}" class="nav-item nav-link">Адрес</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Страницы</a>
+                                <div class="dropdown-menu">
+                                    <a href="{% url 'blog' %}" class="dropdown-item">Блог</a>
+                                    <a href="{% url 'single' %}" class="dropdown-item">Детали</a>
+                                    <a href="{% url 'team' %}" class="dropdown-item">Команда</a>
+                                    <a href="{% url 'booking_page' %}" class="dropdown-item">Запись</a>
+                                </div>
+                            </div>
+                            <a href="{% url 'contact_html' %}" class="nav-item nav-link">Контакты</a>
+                        </div>
+                        <div class="ml-auto">
+                            <a class="btn btn-custom" href="#">Записаться</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+        
+        <!-- Page Header Start -->
+        <div class="page-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>{% block page_header_title %}Прайс и услуги{% endblock %}</h2>
+                    </div>
+                    <div class="col-12">
+                        <a href="{% url 'home' %}">Главная</a>
+                        <a href="{% url 'price_redirect' %}">Прайс</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header End -->
+        
+        {% block content %}
+        {% endblock %}
+        
+        <!-- Footer Start -->
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-contact">
+                            <h2>Связаться с нами</h2>
+                            <p><i class="fa fa-map-marker-alt"></i>123 Улица, Москва, Россия</p>
+                            <p><i class="fa fa-phone-alt"></i>+012 345 6789</p>
+                            <p><i class="fa fa-envelope"></i>info@example.com</p>
+                            <div class="footer-social">
+                                <a class="btn" href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="btn" href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn" href="#"><i class="fab fa-youtube"></i></a>
+                                <a class="btn" href="#"><i class="fab fa-instagram"></i></a>
+                                <a class="btn" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-link">
+                            <h2>Популярные ссылки</h2>
+                            <a href="#">О нас</a>
+                            <a href="#">Контакты</a>
+                            <a href="#">Наши услуги</a>
+                            <a href="#">Точки обслуживания</a>
+                            <a href="#">Прайс-лист</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-link">
+                            <h2>Полезные ссылки</h2>
+                            <a href="#">Условия использования</a>
+                            <a href="#">Политика конфиденциальности</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Помощь</a>
+                            <a href="#">Вопросы и ответы</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-newsletter">
+                            <h2>Подписка на новости</h2>
+                            <form>
+                                <input class="form-control" placeholder="ФИО">
+                                <input class="form-control" placeholder="Email">
+                                <button class="btn btn-custom">Отправить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        <!-- Back to top button -->
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+        
+        <!-- Pre Loader -->
+        <div id="loader" class="show">
+            <div class="loader"></div>
+        </div>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+        <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+        <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+        
+        <!-- Contact Javascript File -->
+        <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+        <script src="{% static 'mail/contact.js' %}"></script>
+
+        <!-- Template Javascript -->
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+</html>
