@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'portfolio',
     'bot',
     'accounts',
+    'pricing'
 ]
 
 MIDDLEWARE = [

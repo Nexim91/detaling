@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Прайс и услуги{% endblock %}
+
+{% load static %}
+{% block extra_head %}
+<link href="{% static 'css/pricing.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- Page Header Start -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Прайс и услуги</h2>
+            </div>
+            <div class="col-12">
+                <a href="{% url 'home' %}">Главная</a>
+                <a href="{% url 'pricing:price_uslugi' %}">Прайс и услуги</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Price Start -->
+<div class="price">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>Прайс и услуги</p>
+            <h2>Выберите услугу</h2>
+        </div>
+        <div class="row">
+            {% for service in services %}
+            <div class="col-md-4">
+                <div class="price-item">
+                    <div class="price-header">
+                        <h3>{{ service.name }}</h3>
+                        <h2><span>₽</span><strong>{{ service.price|floatformat:0 }}</strong></h2>
+                    </div>
+                    <div class="price-body">
+                        <ul>
+                            <li><i class="far fa-check-circle"></i>Категория: {{ service.get_category_display }}</li>
+                            <li><i class="far fa-check-circle"></i>Длительность: {{ service.duration }}</li>
+                            <li><i class="far fa-check-circle"></i>{{ service.description }}</li>
+                        </ul>
+                    </div>
+                    <div class="price-footer">
+                        <a class="btn btn-custom" href="#">Заказать</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>Услуги не найдены.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Price End -->
+{% endblock %}
