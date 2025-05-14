@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Список автомобилей{% endblock %}
+{% block content %}
+<h2>Список автомобилей</h2>
+<ul>
+  {% for car in cars %}
+  <li><a href="{% url 'accounts:edit_car' car.id %}">{{ car.make }} {{ car.model }} ({{ car.license_plate }})</a></li>
+  {% empty %}
+  <li>Автомобили не найдены.</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'accounts:add_car' %}">Добавить автомобиль</a>
+{% endblock %}
