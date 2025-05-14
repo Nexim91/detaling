@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Профиль пользователя{% endblock %}
 
+{% load static %}
+{% block extra_head %}
+<link href="{% static 'css/profile.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 <div class="container mt-4">
   <h2 class="mb-4">Профиль пользователя</h2>
