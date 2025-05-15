@@ -33,7 +33,7 @@ def profile_view(request):
     # Пример напоминаний (можно расширить логику)
     reminders = []
     for stay in stays:
-        if stay.check_in_date + timedelta(days=180) < now().date():
+        if (stay.check_in_date + timedelta(days=180)).date() < now().date():
             reminders.append(f"Рекомендуется повторная химчистка для автомобиля {stay.car.make} {stay.car.model} ({stay.car.license_plate})")
 
     # Пример текущих заказов (статус "в работе")
