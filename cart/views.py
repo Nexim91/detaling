@@ -39,9 +39,22 @@ def checkout(request):
         telegram_token = getattr(settings, 'TELEGRAM_BOT_TOKEN', None)
         telegram_chat_id = getattr(settings, 'TELEGRAM_CHAT_ID', None)
         if telegram_token and telegram_chat_id:
+            # Получаем профиль пользователя и машины
+            user_profile = getattr(request.user, 'profile', None)
+            phone = user_profile.phone if user_profile else 'Не указан'
+            cars = user_profile.cars.all() if user_profile else []
+
             message_lines = [
-                f"Новый заказ #{order.id} от пользователя {request.user.username} ({request.user.email}):"
+                f"Новый заказ #{order.id} от пользователя {request.user.username} ({request.user.email}):",
+                f"Телефон: {phone}",
+                "Машины пользователя:"
             ]
+            if cars:
+                for car in cars:
+                    message_lines.append(f"- {car.make} {car.model} ({car.license_plate})")
+            else:
+                message_lines.append("Нет данных о машинах")
+
             for item in items:
                 message_lines.append(f"- {item.service.name} x {item.quantity}")
             message = "\n".join(message_lines)
