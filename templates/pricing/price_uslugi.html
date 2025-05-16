@@ -1,21 +1,15 @@
-{% extends "pricing/base/base_price.html" %}
-{% block title %}Прайс и услуги{% endblock %}
+я{% extends "pricing/base/base_price.html" %}
 
-{% block page_header_title %}Прайс и услуги{% endblock %}
+{% block page_header %}{% endblock %}
 
 {% block content %}
-<div class="price">
+<div class="price" style="background: none; padding-top: 0;">
     <div class="container">
-        <div class="section-header text-center">
-            <p>Прайс и услуги</p>
-            <h2>Выберите услугу</h2>
-        </div>
-
         {% if categories %}
         <ul class="nav nav-tabs justify-content-center" id="categoryTabs" role="tablist">
             {% for category in categories %}
             <li class="nav-item" role="presentation">
-                <a class="nav-link {% if forloop.first %}active{% endif %}" id="tab-{{ forloop.counter }}" data-toggle="tab" href="#content-{{ forloop.counter }}" role="tab" aria-controls="content-{{ forloop.counter }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ category.name }}</a>
+                <a class="nav-link {% if forloop.first %}active{% endif %} text-white bg-primary rounded m-1 p-3" id="tab-{{ forloop.counter }}" data-toggle="tab" href="#content-{{ forloop.counter }}" role="tab" aria-controls="content-{{ forloop.counter }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ category.name }}</a>
             </li>
             {% endfor %}
         </ul>
@@ -26,19 +20,19 @@
                 <div class="row mt-3">
                     {% for service in category.services %}
                     <div class="col-md-4 mb-4">
-                        <div class="price-item">
+                        <div class="price-item border rounded shadow-sm p-3 h-100">
                             <div class="price-header">
-                                <h3>{{ service.name }}</h3>
+                                <h3 class="text-primary">{{ service.name }}</h3>
                                 <h2><span>₽</span><strong>{{ service.price|floatformat:0 }}</strong></h2>
                             </div>
                             <div class="price-body">
                                 <ul>
-                                    <li><i class="far fa-check-circle"></i>Длительность: {{ service.duration }}</li>
-                                    <li><i class="far fa-check-circle"></i>{{ service.description }}</li>
+                                    <li><i class="far fa-check-circle text-success"></i>Длительность: {{ service.duration }}</li>
+                                    <li><i class="far fa-check-circle text-success"></i>{{ service.description }}</li>
                                 </ul>
                             </div>
                             <div class="price-footer">
-                                <a class="btn btn-custom" href="{% url 'cart:add_to_cart' service.id %}">Добавить в корзину</a>
+                                <a class="btn btn-success btn-block" href="{% url 'cart:add_to_cart' service.id %}">Добавить в корзину</a>
                             </div>
                         </div>
                     </div>

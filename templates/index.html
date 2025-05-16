@@ -121,273 +121,295 @@
         <!-- Nav Bar End -->
 
 
-        <!-- Carousel Start -->
-        <div class="carousel">
-            <div class="container-fluid">
-                <div class="owl-carousel">
-                    <div class="carousel-item">
-                        <div class="carousel-img">
-                            <img src="{% static 'img/carousel-1.jpg' %}" alt="Carousel 1">
-                        </div>
-                        <div class="carousel-text">
-                            <h3>Дейтелинг и покраска </h3>
-                            <h1>Ваш авто как новый</h1>
-                            <p>
-                                Опытные сотрудники
-                            </p>
-                            <a class="btn btn-custom" href="#service">узнать больше</a>
-                        </div>
+       <!-- Carousel Start -->
+<div class="carousel">
+    <div class="container-fluid">
+        <div class="owl-carousel">
+            <!-- Слайд 1 -->
+            <div class="carousel-item">
+                <div class="carousel-img">
+                    <img src="{% static 'img/carousel-1.jpg' %}" alt="Профессиональный детейлинг">
+                </div>
+                <div class="carousel-text">
+                    <h3>Премиальный детейлинг</h3>
+                    <h1>Вернем вашему авто первозданный вид</h1>
+                    <p>
+                        Используем профессиональные материалы и технологии для безупречного результата
+                    </p>
+                    <a class="btn btn-custom" href="#service">Подробнее об услугах</a>
+                </div>
+            </div>
+
+            <!-- Слайд 2 -->
+            <div class="carousel-item">
+                <div class="carousel-img">
+                    <img src="{% static 'img/carousel-2.jpg' %}" alt="Комплексная мойка">
+                </div>
+                <div class="carousel-text">
+                    <h3>Экспресс-уход</h3>
+                    <h1>Комплексная обработка за 3 часа</h1>
+                    <p>
+                        Мойка, полировка и защитное покрытие - все, что нужно для ежедневного ухода
+                    </p>
+                    <a class="btn btn-custom" href="#price">Посмотреть цены</a>
+                </div>
+            </div>
+
+            <!-- Слайд 3 -->
+            <div class="carousel-item">
+                <div class="carousel-img">
+                    <img src="{% static 'img/carousel-3.jpg' %}" alt="Химчистка салона">
+                </div>
+                <div class="carousel-text">
+                    <h3>Глубокая химчистка</h3>
+                    <h1>Салон как из салона</h1>
+                    <p>
+                        Устраним любые загрязнения и неприятные запахи с гарантией результата
+                    </p>
+                    <a class="btn btn-custom" href="#contact">Записаться онлайн</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel End -->
+        
+
+<!-- About Start -->
+<div class="about">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="about-img">
+                    <img src="{% static 'img/about.jpg' %}" alt="Детейлинг-студия">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="section-header text-left">
+                    <p>О нас</p>
+                    <h2>Профессиональный детейлинг на Розванской</h2>
+                </div>
+                <div class="about-content">
+                    <p>
+                        Мы — команда экспертов с многолетним опытом в уходе за автомобилями. Наша студия предлагает премиальный сервис, который не просто очищает, а возвращает вашему авто первоначальный лоск и защищает его на долгие годы.
+                    </p>
+                    <ul>
+                        <li><i class="far fa-check-circle"></i>Полный комплекс детейлинг-услуг: от мойки до керамического покрытия</li>
+                        <li><i class="far fa-check-circle"></i>Глубокая химчистка салона с устранением запахов и бактерий</li>
+                        <li><i class="far fa-check-circle"></i>Безопасная химчистка кузова с защитой ЛКП</li>
+                        <li><i class="far fa-check-circle"></i>Локальная и полная покраска с гарантией совпадения цвета</li>
+                    </ul>
+                    <a class="btn btn-custom" href="#service">Подробнее об услугах</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+<!-- Service Start -->
+<div class="service" id="service">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>Почему мы?</p>
+            <h2>Премиальный сервис от опытных специалистов</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="service-item">
+                    <i class="flaticon-car-wash-1"></i>
+                    <h3>Мойка кузова</h3>
+                    <p>Бережная ручная мойка с использованием профессиональной химии для безупречной чистоты</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service-item">
+                    <i class="flaticon-car-wash"></i>
+                    <h3>Уборка салона</h3>
+                    <p>Комплексная очистка всех поверхностей салона с защитой материалов от старения</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service-item">
+                    <i class="flaticon-vacuum-cleaner"></i>
+                    <h3>Вакуумная чистка</h3>
+                    <p>Глубокая очистка сидений, ковров и труднодоступных мест промышленным пылесосом</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service-item">
+                    <i class="flaticon-seat"></i>
+                    <h3>Чистка сидений</h3>
+                    <p>Удаление сложных загрязнений с любых типов обивки с восстановлением цвета</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service-item">
+                    <i class="flaticon-car-service"></i>
+                    <h3>Полировка кузова</h3>
+                    <p>Удаление царапин и восстановление блеска лакокрасочного покрытия</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service-item">
+                    <i class="flaticon-car-service-2"></i>
+                    <h3>Нано-покрытие</h3>
+                    <p>Защита кузова керамическим составом с эффектом гидрофобизации</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service-item">
+                    <i class="flaticon-car-wash"></i>
+                    <h3>Полировка фар</h3>
+                    <p>Восстановление прозрачности фар и защита от помутнения</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service-item">
+                    <i class="flaticon-brush-1"></i>
+                    <h3>Покраска авто</h3>
+                    <p>Качественная покраска деталей с подбором цвета и гарантией результата</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Service End -->
+        
+        
+
+        
+        
+ <!-- Price Start -->
+<div class="price">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>Наши Цены</p>
+            <h2>Выберите подходящий пакет услуг</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="price-item">
+                    <div class="price-header">
+                        <h3>Базовый уход</h3>
+                        <h2><span>от</span><strong>5 000</strong><span>руб</span></h2>
                     </div>
-                    <div class="carousel-item">
-                        <div class="carousel-img">
-                            <img src="{% static 'img/carousel-2.jpg' %}" alt="Carousel 2">
-                        </div>
-                        <div class="carousel-text">
-                            <h3>Мойка и Дейтелинг</h3>
-                            <h1>Качество на первом месте</h1>
-                            <p>
-                               Что то тут писать надо
-                            </p>
-                            <a class="btn btn-custom" href="">Explore More</a>
-                        </div>
+                    <div class="price-body">
+                        <ul>
+                            <li><i class="far fa-check-circle"></i>Ручная мойка кузова</li>
+                            <li><i class="far fa-check-circle"></i>Глубокая чистка салона пылесосом</li>
+                            <li><i class="far fa-check-circle"></i>Очистка пластиковых панелей</li>
+                            <li><i class="far fa-times-circle"></i>Влажная обработка текстиля</li>
+                            <li><i class="far fa-times-circle"></i>Чистка и полировка стекол</li>
+                        </ul>
                     </div>
-                    <div class="carousel-item">
-                        <div class="carousel-img">
-                            <img src="{% static 'img/carousel-3.jpg' %}" alt="Carousel 3">
-                        </div>
-                        <div class="carousel-text">
-                            <h3>мойка и Дейтелинг</h3>
-                            <h1>чистота и порядок</h1>
-                            <p>
-                                уборочка на 5+
-                            </p>
-                            <a class="btn btn-custom" href="#service">Explore More</a>
-                        </div>
+                    <div class="price-footer">
+                        <a class="btn btn-custom" href="">Записаться</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="price-item featured-item">
+                    <div class="price-header">
+                        <h3>Премиум клининг</h3>
+                        <h2><span>от</span><strong>10 000</strong><span>руб</span></h2>
+                    </div>
+                    <div class="price-body">
+                        <ul>
+                            <li><i class="far fa-check-circle"></i>Полная химчистка сидений</li>
+                            <li><i class="far fa-check-circle"></i>Чернение резиновых уплотнителей</li>
+                            <li><i class="far fa-check-circle"></i>Кондиционирование кожи</li>
+                            <li><i class="far fa-check-circle"></i>Глубокая влажная уборка</li>
+                            <li><i class="far fa-times-circle"></i>Нанесение защитного состава</li>
+                        </ul>
+                    </div>
+                    <div class="price-footer">
+                        <a class="btn btn-custom" href="">Записаться</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="price-item">
+                    <div class="price-header">
+                        <h3>Эксклюзивный уход</h3>
+                        <h2><span>от</span><strong>15 000</strong><span>руб</span></h2>
+                    </div>
+                    <div class="price-body">
+                        <ul>
+                            <li><i class="far fa-check-circle"></i>Полный комплекс детейлинга</li>
+                            <li><i class="far fa-check-circle"></i>Нано-очистка всех поверхностей</li>
+                            <li><i class="far fa-check-circle"></i>Озонирование салона</li>
+                            <li><i class="far fa-check-circle"></i>Защитное покрытие пластика</li>
+                            <li><i class="far fa-check-circle"></i>Бесконтактная сушка кузова</li>
+                        </ul>
+                    </div>
+                    <div class="price-footer">
+                        <a class="btn btn-custom" href="">Записаться</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Carousel End -->
-        
-
-        <!-- About Start -->
-        <div class="about">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="about-img">
-                            <img src="{% static 'img/about.jpg' %}" alt="Image">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="section-header text-left">
-                            <p>О нас</p>
-                            <h2>Дейтелинг студия на разванской</h2>
-                        </div>
-                        <div class="about-content">
-                            <p>
-                                Опытный и профессиональный коллектив, который предоставляет услуги по уходу за автомобиля
-                            </p>
-                            <ul>
-                                <li><i class="far fa-check-circle"></i>Полный спектр Дейтелинг услуг</li>
-                                <li><i class="far fa-check-circle"></i>Химчистка салона</li>
-                                <li><i class="far fa-check-circle"></i>Химчистка кузова</li>
-                                <li><i class="far fa-check-circle"></i>Покраска авто</li>
-                            </ul>
-                            <a class="btn btn-custom" href="#service">узнать больше</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- About End -->
-
-
-        <!-- Service Start -->
-        <div class="service" id="service">
-            <div class="container">
-                <div class="section-header text-center">
-                    <p>Почему мы?</p>
-                    <h2>Премиальный сервис  большой опыт опытные специалисты</h2>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="service-item">
-                            <i class="flaticon-car-wash-1"></i>
-                            <h3>Мойка Кузова</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="service-item">
-                            <i class="flaticon-car-wash"></i>
-                            <h3>Уборка салона</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="service-item">
-                            <i class="flaticon-vacuum-cleaner"></i>
-                            <h3>Уборка вакумным пылесосом</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="service-item">
-                            <i class="flaticon-seat"></i>
-                            <h3>Чистка сидений</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="service-item">
-                            <i class="flaticon-car-service"></i>
-                            <h3>Пилинг кузова</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="service-item">
-                            <i class="flaticon-car-service-2"></i>
-                            <h3>Нано покрытие</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="service-item">
-                            <i class="flaticon-car-wash"></i>
-                            <h3>полировка фар</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="service-item">
-                            <i class="flaticon-brush-1"></i>
-                            <h3>Покраска авто</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Service End -->
-        
-        
-
-        
-        
-        <!-- Price Start -->
-        <div class="price">
-            <div class="container">
-                <div class="section-header text-center">
-                    <p>Наши Цены</p>
-                    <h2>Выберите свой комплекс</h2>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="price-item">
-                            <div class="price-header">
-                                <h3>Базовый</h3>
-                                <h2><span>от</span><strong>5 000</strong><span>руб</span></h2>
-                            </div>
-                            <div class="price-body">
-                                <ul>
-                                    <li><i class="far fa-check-circle"></i>Мойка сидений</li>
-                                    <li><i class="far fa-check-circle"></i>Чистка пылесосом</li>
-                                    <li><i class="far fa-check-circle"></i>Внешняя чистка</li>
-                                    <li><i class="far fa-times-circle"></i>Влажная уборка салона</li>
-                                    <li><i class="far fa-times-circle"></i>Протирание окон</li>
-                                </ul>
-                            </div>
-                            <div class="price-footer">
-                                <a class="btn btn-custom" href="">Записаться</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="price-item featured-item">
-                            <div class="price-header">
-                                <h3>Премиальный клининг</h3>
-                                <h2><span>от</span><strong>10 000</strong><span>руб</span></h2>
-                            </div>
-                            <div class="price-body">
-                                <ul>
-                                    <li><i class="far fa-check-circle"></i>Мойка сидений</li>
-                                    <li><i class="far fa-check-circle"></i>Чистка пылесосом</li>
-                                    <li><i class="far fa-check-circle"></i>Внешняя чистка</li>
-                                    <li><i class="far fa-check-circle"></i>Влажная уборка салона</li>
-                                    <li><i class="far fa-times-circle"></i>Протирание окон</li>
-                                </ul>
-                            </div>
-                            <div class="price-footer">
-                                <a class="btn btn-custom" href="">Записаться</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="price-item">
-                            <div class="price-header">
-                                <h3>Комплексная уборка</h3>
-                                <h2><span>от</span><strong>15 000</strong><span>руб</span></h2>
-                            </div>
-                            <div class="price-body">
-                                <ul>
-                                    <li><i class="far fa-check-circle"></i>Мойка сидений</li>
-                                    <li><i class="far fa-check-circle"></i>Чистка пылесосом</li>
-                                    <li><i class="far fa-check-circle"></i>Внешняя чистка</li>
-                                    <li><i class="far fa-check-circle"></i>Влажная уборка салона</li>
-                                    <li><i class="far fa-check-circle"></i>Протирание окон</li>
-                                </ul>
-                            </div>
-                            <div class="price-footer">
-                                <a class="btn btn-custom" href="">Записаться</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Price End -->
+    </div>
+</div>
+<!-- Price End -->
         
         
 <!-- Location Start -->
+<!-- Location Start -->
 <div class="location">
     <div class="container">
-        <div class="row justify-content-center"> <!-- Центрируем строку -->
+        <div class="row justify-content-center">
             <!-- Левая колонка (информация) -->
-            <div class="col-lg-5 mb-4 mb-lg-0"> <!-- Уменьшил ширину и добавил отступ -->
-                <div class="section-header text-center"> <!-- Центрируем заголовок -->
-                    <p>Где мы находимся</p>
-                    <h2>EcoLuxe</h2>
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="section-header text-center">
+                    <p>Как нас найти</p>
+                    <h2>EcoLuxe Детейлинг</h2>
                 </div>
-                <div class="location-item text-center"> <!-- Центрируем блок -->
+                <div class="location-item text-center">
                     <i class="fa fa-map-marker-alt"></i>
                     <div class="location-text">
-                        <h3>Студия Дейтелинга</h3>
-                        <p>Резванская 3, Калужская область, Россия</p>
-                        <p><strong>Телефон:</strong>+799999999</p>
+                        <h3>Автостудия премиум-класса</h3>
+                        <p>ул. Розванская, 3, Калуга, Калужская область</p>
+                        <p><strong>Телефон:</strong> +7 (999) 999-99-99</p>
+                        <p><strong>Режим работы:</strong> ежедневно с 9:00 до 21:00</p>
+                        <p><strong>Email:</strong> info@ecoluxe.ru</p>
                     </div>
                 </div>
             </div>
             
             <!-- Правая колонка (форма) -->
-            <div class="col-lg-5"> <!-- Такая же ширина как у левой -->
+            <div class="col-lg-5">
                 <div class="location-form">
-                    <h3 class="text-center">Записаться</h3> <!-- Центрируем заголовок -->
-                    <form>
-                        <div class="control-group">
-                            <input type="text" class="form-control" placeholder="Имя" required="required" />
-                        </div>
-                        <div class="control-group">
-                            <input type="email" class="form-control" placeholder="Email" required="required" />
-                        </div>
-                        <div class="control-group">
-                            <textarea class="form-control" placeholder="Напишите сюда вашу контактную информацию для обратной связи" required="required"></textarea>
-                        </div>
-                        <div class="text-center"> <!-- Центрируем кнопку -->
-                            <button class="btn btn-custom" type="submit">Отправить заявку</button>
+                    <h3 class="text-center">Вход в личный кабинет</h3>
+                    <form class="form-signin" action="{% url 'login' %}" method="post" name="form">
+                        {% csrf_token %}
+                        {% if form.errors %}
+                            <div class="form-errors">
+                                <ul>
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        <label for="username">Имя пользователя</label>
+                        <input class="form-styling form-control" type="text" name="username" placeholder="" value="{{ form.username.value|default_if_none:'' }}"/>
+                        <label for="password">Пароль</label>
+                        <input class="form-styling form-control" type="password" name="password" placeholder=""/>
+                        <input type="checkbox" id="checkbox" name="remember"/>
+                        <label for="checkbox" ><span class="ui"></span>Оставаться в системе</label>
+                        <div class="btn-animate text-center">
+                            <button type="submit" class="btn btn-custom btn-signin">Войти</button>
                         </div>
                     </form>
+                    <div class="text-center mt-3">
+                        <p>Нет аккаунта? <a href="{% url 'accounts:register' %}">Зарегистрируйтесь здесь</a></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -400,23 +422,23 @@
 <div class="team">
     <div class="container">
         <div class="section-header text-center">
-            <p>Наша команда</p>
-            <h2>Дейтелеры и Маляры</h2>
+            <p>Наши мастера</p>
+            <h2>Профессионалы детейлинга</h2>
         </div>
-        <div class="row justify-content-center"> <!-- Добавлено центрирование строки -->
-            <div class="col-lg-3 col-md-6 mb-4"> <!-- Добавлен отступ снизу -->
-                <div class="team-item text-center"> <!-- Центрируем содержимое -->
-                    <div class="team-img mx-auto"> <!-- Центрируем изображение -->
-                        <img src="{% static 'img/team-1.jpg' %}" alt="Team Image" class="img-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="team-item text-center">
+                    <div class="team-img mx-auto">
+                        <img src="{% static 'img/team-1.jpg' %}" alt="Детейлинг-специалист" class="img-fluid">
                     </div>
                     <div class="team-text">
                         <h2>Рузанов Юрий</h2>
-                        <p>Дейтлер</p>
-                        <div class="team-social justify-content-center"> <!-- Центрируем соц.иконки -->
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
+                        <p>Главный детейлер</p>
+                        <p class="team-desc">Специалист по премиум-обработке кузова с 10-летним опытом</p>
+                        <div class="team-social justify-content-center">
                             <a href=""><i class="fab fa-instagram"></i></a>
+                            <a href=""><i class="fab fa-vk"></i></a>
+                            <a href=""><i class="fab fa-telegram"></i></a>
                         </div>
                     </div>
                 </div>
@@ -424,16 +446,16 @@
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="team-item text-center">
                     <div class="team-img mx-auto">
-                        <img src="{% static 'img/team-2.jpg' %}" alt="Team Image" class="img-fluid">
+                        <img src="{% static 'img/team-2.jpg' %}" alt="Автомаляр" class="img-fluid">
                     </div>
                     <div class="team-text">
                         <h2>Алексей Кобейкин</h2>
-                        <p>Автомаляр</p>
+                        <p>Ведущий автомаляр</p>
+                        <p class="team-desc">Эксперт по покраске и локальному ремонту ЛКП</p>
                         <div class="team-social justify-content-center">
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
                             <a href=""><i class="fab fa-instagram"></i></a>
+                            <a href=""><i class="fab fa-vk"></i></a>
+                            <a href=""><i class="fab fa-telegram"></i></a>
                         </div>
                     </div>
                 </div>
@@ -441,16 +463,16 @@
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="team-item text-center">
                     <div class="team-img mx-auto">
-                        <img src="{% static 'img/team-3.jpg' %}" alt="Team Image" class="img-fluid">
+                        <img src="{% static 'img/team-3.jpg' %}" alt="Автомаляр" class="img-fluid">
                     </div>
                     <div class="team-text">
                         <h2>Михаил Ручкин</h2>
-                        <p>Автомаляр</p>
+                        <p>Мастер полировки</p>
+                        <p class="team-desc">Специалист по восстановлению блеска и защите кузова</p>
                         <div class="team-social justify-content-center">
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
                             <a href=""><i class="fab fa-instagram"></i></a>
+                            <a href=""><i class="fab fa-vk"></i></a>
+                            <a href=""><i class="fab fa-telegram"></i></a>
                         </div>
                     </div>
                 </div>
@@ -462,198 +484,232 @@
         <!-- Team End -->
         
         
-        <!-- Testimonial Start -->
-        <div class="testimonial">
-            <div class="container">
-                <div class="section-header text-center">
-                    <p>Отзывы клиентов</p>
-                    <h2>Что о нас говорят</h2>
+<!-- Testimonial Start -->
+<div class="testimonial">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>Мнение клиентов</p>
+            <h2>Нас рекомендуют</h2>
+        </div>
+        <div class="owl-carousel testimonials-carousel">
+            <div class="testimonial-item">
+                <img src="{% static 'img/testimonial-1.jpg' %}" alt="Виктор Палыч">
+                <div class="testimonial-text">
+                    <h3>Виктор Палыч</h3>
+                    <h4>Директор автосалона</h4>
+                    <p>
+                        "Привожу все машины из салона только сюда. После детейлинга у вас они выглядят на 30% дороже! 
+                        Качество работы выше всяких похвал."
+                    </p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
                 </div>
-                <div class="owl-carousel testimonials-carousel">
-                    <div class="testimonial-item">
-                        <img src="{% static 'img/testimonial-1.jpg' %}" alt="Testimonial Image">
-                        <div class="testimonial-text">
-                            <h3>Виктор Палыч</h3>
-                            <h4>директор</h4>
-                            <p>
-                                Я в шоке как чисто!
-                            </p>
-                        </div>
+            </div>
+            <div class="testimonial-item">
+                <img src="{% static 'img/testimonial-2.jpg' %}" alt="Ольга Ватрушкина">
+                <div class="testimonial-text">
+                    <h3>Ольга Ватрушкина</h3>
+                    <h4>Владелица Mercedes-Benz</h4>
+                    <p>
+                        "После химчистки салона в вашей студии машина пахнет как новая! Убрали даже самые сложные пятна, 
+                        оставшиеся после детей. Теперь только к вам!"
+                    </p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
-                    <div class="testimonial-item">
-                        <img src="{% static 'img/testimonial-2.jpg' %}" alt="Testimonial Image">
-                        <div class="testimonial-text">
-                            <h3>Оля Ватрушкина</h3>
-                            <h4>автолюбитель</h4>
-                            <p>
-                                Машина теперь как новая
-                            </p>
-                        </div>
+                </div>
+            </div>
+            <div class="testimonial-item">
+                <img src="{% static 'img/testimonial-3.jpg' %}" alt="Сергей Ходжаев">
+                <div class="testimonial-text">
+                    <h3>Сергей Ходжаев</h3>
+                    <h4>Владелец Урал NEXT</h4>
+                    <p>
+                        "Думал, мой рабочий Урал уже не отмыть. Ребята сделали невозможное - 
+                        теперь блестит как новенький! Полировка держится уже полгода."
+                    </p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
                     </div>
-                    <div class="testimonial-item">
-                        <img src="{% static 'img/testimonial-3.jpg' %}" alt="Testimonial Image">
-                        <div class="testimonial-text">
-                            <h3>Сергей Ходжаев</h3>
-                            <h4>Мастер</h4>
-                            <p>
-                                Мой Урал блестит как новый
-                            </p>
-                        </div>
-                    </div>
-                    <div class="testimonial-item">
-                        <img src="{% static 'img/testimonial-4.jpg' %}" alt="Testimonial Image">
-                        <div class="testimonial-text">
-                            <h3>Тимур Незаметдинов</h3>
-                            <h4>Рабочий</h4>
-                            <p>
-                                открасили машину божественно!
-                            </p>
-                        </div>
+                </div>
+            </div>
+            <div class="testimonial-item">
+                <img src="{% static 'img/testimonial-4.jpg' %}" alt="Тимур Незаметдинов">
+                <div class="testimonial-text">
+                    <h3>Тимур Незаметдинов</h3>
+                    <h4>Владелец BMW X5</h4>
+                    <p>
+                        "Восстановили глубокие царапины после ДТП так, что и следов не осталось! 
+                        Цвет подобрали идеально. Это действительно профессионалы высшего класса."
+                    </p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Testimonial End -->
+    </div>
+</div>
+<!-- Testimonial End -->
 
-
-        <!-- Blog Start -->
-        <div class="blog">
-            <div class="container">
-                <div class="section-header text-center">
-                    <p>Наши работы</p>
-                    <h2>Что мы делали</h2>
+<!-- Blog Start -->
+<div class="blog">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>Наши кейсы</p>
+            <h2>Реальные примеры работ в Калуге</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="blog-item">
+                    <div class="blog-img">
+                        <img src="{% static 'img/blog-1.jpg' %}" alt="Реставрация салона после потопа">
+                        <div class="meta-date">
+                            <span>15</span>
+                            <strong>Июн</strong>
+                            <span>2023</span>
+                        </div>
+                    </div>
+                    <div class="blog-text">
+                        <h3><a href="#">Спасение авто после наводнения</a></h3>
+                        <p>
+                            Полная реставрация Mercedes-Benz GLC после подтопления. Устранили запах сырости, 
+                            восстановили электронику и полностью заменили напольное покрытие.
+                        </p>
+                    </div>
+                    <div class="blog-meta">
+                        <p><i class="fa fa-car"></i><a href="">Mercedes-Benz</a></p>
+                        <p><i class="fa fa-clock"></i><a href="">3 дня работы</a></p>
+                        <p><i class="fa fa-tools"></i><a href="">Химчистка+электроника</a></p>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="blog-item">
-                            <div class="blog-img">
-                                <img src="{% static 'img/blog-1.jpg' %}" alt="Blog Image">
-                                <div class="meta-date">
-                                    <span>01</span>
-                                    <strong>Jan</strong>
-                                    <span>2020</span>
-                                </div>
-                            </div>
-                            <div class="blog-text">
-                                <h3><a href="#">Уборка старой грязи</a></h3>
-                                <p>
-                                    Было трудно
-                                </p>
-                            </div>
-                            <div class="blog-meta">
-                                <p><i class="fa fa-user"></i><a href="">Admin</a></p>
-                                <p><i class="fa fa-folder"></i><a href="">Web Design</a></p>
-                                <p><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
-                            </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog-item">
+                    <div class="blog-img">
+                        <img src="{% static 'img/blog-2.jpg' %}" alt="Полировка кузова">
+                        <div class="meta-date">
+                            <span>22</span>
+                            <strong>Авг</strong>
+                            <span>2023</span>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="blog-item">
-                            <div class="blog-img">
-                                <img src="{% static 'img/blog-2.jpg' %}" alt="Blog Image">
-                                <div class="meta-date">
-                                    <span>01</span>
-                                    <strong>Jan</strong>
-                                    <span>2025</span>
-                                </div>
-                            </div>
-                            <div class="blog-text">
-                                <h3><a href="#">Полировка чего то</a></h3>
-                                <p>
-                                    юра полировал он знает 
-                            </div>
-                            <div class="blog-meta">
-                                <p><i class="fa fa-user"></i><a href="">Admin</a></p>
-                                <p><i class="fa fa-folder"></i><a href="">Web Design</a></p>
-                                <p><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
-                            </div>
+                    <div class="blog-text">
+                        <h3><a href="#">Восстановление ЛКП 20-летней Toyota</a></h3>
+                        <p>
+                            Многоступенчатая полировка вернула блеск потускневшей краске. 
+                            Удалили 90% царапин и нанесли керамическое покрытие для защиты.
+                        </p>
+                    </div>
+                    <div class="blog-meta">
+                        <p><i class="fa fa-car"></i><a href="">Toyota Camry</a></p>
+                        <p><i class="fa fa-clock"></i><a href="">12 часов</a></p>
+                        <p><i class="fa fa-tools"></i><a href="">Полировка+керамика</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog-item">
+                    <div class="blog-img">
+                        <img src="{% static 'img/blog-3.jpg' %}" alt="Чистка салона">
+                        <div class="meta-date">
+                            <span>05</span>
+                            <strong>Сен</strong>
+                            <span>2023</span>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="blog-item">
-                            <div class="blog-img">
-                                <img src="{% static 'img/blog-3.jpg' %}" alt="Blog Image">
-                                <div class="meta-date">
-                                    <span>01</span>
-                                    <strong>Jan</strong>
-                                    <span>2045</span>
-                                </div>
-                            </div>
-                            <div class="blog-text">
-                                <h3><a href="#">Грязные сиденья</a></h3>
-                                <p>
-                                    мишаня потел но убирался
-
-                                </p>
-                            </div>
-                            <div class="blog-meta">
-                                <p><i class="fa fa-user"></i><a href="">Admin</a></p>
-                                <p><i class="fa fa-folder"></i><a href="">Web Design</a></p>
-                                <p><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
-                            </div>
-                        </div>
+                    <div class="blog-text">
+                        <h3><a href="#">Борьба с въевшимся запахом табака</a></h3>
+                        <p>
+                            После 5 лет курения в салоне Audi A6 мы полностью устранили запах 
+                            с помощью озонирования и глубокой чистки всех поверхностей.
+                        </p>
+                    </div>
+                    <div class="blog-meta">
+                        <p><i class="fa fa-car"></i><a href="">Audi A6</a></p>
+                        <p><i class="fa fa-clock"></i><a href="">2 дня</a></p>
+                        <p><i class="fa fa-tools"></i><a href="">Озонирование+чистка</a></p>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Blog End -->
+    </div>
+</div>
+<!-- Blog End -->
 
 
-        <!-- Footer Start -->
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-contact">
-                            <h2>Get In Touch</h2>
-                            <p><i class="fa fa-map-marker-alt"></i>Резванская 3, Калуга, Россия</p>
-                            <p><i class="fa fa-phone-alt"></i>+7999999999</p>
-                            <p><i class="fa fa-envelope"></i>info@example.com</p>
-                            <div class="footer-social">
-                                <a class="btn" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn" href=""><i class="fab fa-youtube"></i></a>
-                                <a class="btn" href=""><i class="fab fa-instagram"></i></a>
-                                <a class="btn" href=""><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-link">
-                            <h2>Popular Links</h2>
-                            <a href="">About Us</a>
-                            <a href="">Contact Us</a>
-                            <a href="">Our Service</a>
-                            <a href="">Service Points</a>
-                            <a href="">Pricing Plan</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-link">
-                            <h2>Useful Links</h2>
-                            <a href="">Terms of use</a>
-                            <a href="">Privacy policy</a>
-                            <a href="">Cookies</a>
-                            <a href="">Help</a>
-                            <a href="">FQAs</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-newsletter">
-                            <h2>Newsletter</h2>
-                            <form>
-                                <input class="form-control" placeholder="Full Name">
-                                <input class="form-control" placeholder="Email">
-                                <button class="btn btn-custom">Submit</button>
-                            </form>
-                        </div>
+<!-- Footer Start -->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <!-- Контакты -->
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-contact">
+                    <h2>Контакты</h2>
+                    <p><i class="fa fa-map-marker-alt"></i>ул. Розванская, 3, Калуга, Россия</p>
+                    <p><i class="fa fa-phone-alt"></i>+7 (999) 999-99-99</p>
+                    <p><i class="fa fa-envelope"></i>info@ecoluxe.ru</p>
+                    <div class="footer-social">
+                        <a class="btn" href=""><i class="fab fa-vk"></i></a>
+                        <a class="btn" href=""><i class="fab fa-telegram"></i></a>
+                        <a class="btn" href=""><i class="fab fa-instagram"></i></a>
+                        <a class="btn" href=""><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="container copyright">
-                <p>&copy; <a href="#">Your Site Name</a>, All Right Reserved. Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
+
+            <!-- Основные ссылки -->
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-link">
+                    <h2>Услуги</h2>
+                    <a href="">Детейлинг кузова</a>
+                    <a href="">Химчистка салона</a>
+                    <a href="">Полировка и защита</a>
+                    <a href="">Покрасочные работы</a>
+                    <a href="">Нано-покрытия</a>
+                </div>
+            </div>
+
+            <!-- Дополнительная информация -->
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-newsletter">
+                    <h2>Записаться онлайн</h2>
+                    <form>
+                        <input class="form-control" placeholder="Ваше имя" required>
+                        <input class="form-control" placeholder="Телефон" required>
+                        <button class="btn btn-custom">Отправить заявку</button>
+                    </form>
+                    <div class="work-hours mt-3">
+                        <p><i class="fa fa-clock"></i> Работаем: ежедневно 9:00-21:00</p>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+    
+    <!-- Копирайт -->
+    <div class="container copyright">
+        <p>&copy; <a href="#">EcoLuxe Детейлинг</a>, 2023. Все права защищены.</p>
+    </div>
+</div>
+<!-- Footer End -->
         <!-- Footer End -->
         
         <!-- Back to top button -->
