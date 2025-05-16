@@ -140,4 +140,8 @@ STATICFILES_DIRS = [
 
 LOGOUT_REDIRECT_URL = '/'
 
+# Telegram bot settings for order notifications
+TELEGRAM_BOT_TOKEN = "5751249143:AAENKFBEpbazywwRhjtU-TQURPq0VxDH9ps"
+TELEGRAM_CHAT_ID = "1082586050"
+
 

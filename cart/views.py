@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from pricing.models import Service
 from .models import Cart, CartItem, Order, OrderItem
+from bot.telegram import send_telegram_message
+from django.conf import settings
 
 @login_required
 def add_to_cart(request, service_id):
@@ -32,6 +34,19 @@ def checkout(request):
         for item in items:
             OrderItem.objects.create(order=order, service=item.service, quantity=item.quantity)
         cart.items.all().delete()
+
+        # Send Telegram notification to owner
+        telegram_token = getattr(settings, 'TELEGRAM_BOT_TOKEN', None)
+        telegram_chat_id = getattr(settings, 'TELEGRAM_CHAT_ID', None)
+        if telegram_token and telegram_chat_id:
+            message_lines = [
+                f"Новый заказ #{order.id} от пользователя {request.user.username} ({request.user.email}):"
+            ]
+            for item in items:
+                message_lines.append(f"- {item.service.name} x {item.quantity}")
+            message = "\n".join(message_lines)
+            send_telegram_message(telegram_token, telegram_chat_id, message)
+
         return redirect('cart:order_success', order_id=order.id)
     return render(request, 'cart/checkout.html', {'cart': cart, 'items': items})
 
