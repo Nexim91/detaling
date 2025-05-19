@@ -5,6 +5,7 @@ from pricing.models import Service
 from .models import Cart, CartItem, Order, OrderItem
 from bot.telegram import send_telegram_message
 from django.conf import settings
+from django.http import JsonResponse
 
 @login_required
 def add_to_cart(request, service_id):
@@ -15,18 +16,49 @@ def add_to_cart(request, service_id):
         cart_item.quantity += 1
         cart_item.save()
     messages.success(request, f'Услуга "{service.name}" добавлена в корзину.')
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({'success': True})
     return redirect('cart:view_cart')
 
 @login_required
 def view_cart(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
     items = cart.items.all()
-    return render(request, 'cart/view_cart.html', {'cart': cart, 'items': items})
+    if request.method == 'POST':
+        # Удаление позиции
+        if 'remove' in request.POST:
+            item_id = request.POST.get('remove')
+            CartItem.objects.filter(id=item_id, cart=cart).delete()
+        # Обновление количества
+        elif 'update' in request.POST:
+            for item in items:
+                qty = request.POST.get(f'quantity_{item.id}')
+                if qty is not None:
+                    try:
+                        qty = int(qty)
+                        if qty > 0:
+                            item.quantity = qty
+                            item.save()
+                    except ValueError:
+                        pass
+        # После изменений обновляем список items
+        items = cart.items.all()
+    # Добавляем line_total для каждого item и общий cart_total
+    cart_total = 0
+    for item in items:
+        item.line_total = item.service.price * item.quantity
+        cart_total += item.line_total
+    return render(request, 'cart/view_cart.html', {'cart': cart, 'items': items, 'cart_total': cart_total})
 
 @login_required
 def checkout(request):
     cart = get_object_or_404(Cart, user=request.user)
     items = cart.items.all()
+    # Добавляем line_total для каждого item и общий cart_total
+    cart_total = 0
+    for item in items:
+        item.line_total = item.service.price * item.quantity
+        cart_total += item.line_total
     if request.method == 'POST':
         order = Order.objects.create(user=request.user)
         # Save order before creating order items
@@ -61,7 +93,7 @@ def checkout(request):
             send_telegram_message(telegram_token, telegram_chat_id, message)
 
         return redirect('cart:order_success', order_id=order.id)
-    return render(request, 'cart/checkout.html', {'cart': cart, 'items': items})
+    return render(request, 'cart/checkout.html', {'cart': cart, 'items': items, 'cart_total': cart_total})
 
 @login_required
 def order_success(request, order_id):

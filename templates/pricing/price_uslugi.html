@@ -1,10 +1,12 @@
-я{% extends "pricing/base/base_price.html" %}
+{% extends "pricing/base/base_price.html" %}
 
 {% block page_header %}{% endblock %}
 
 {% block content %}
 <div class="price" style="background: none; padding-top: 0;">
     <div class="container">
+        <p>Категорий: {{ categories|length }}</p>
+        <p>Услуг без категории: {{ no_category_services|length }}</p>
         {% if categories %}
         <ul class="nav nav-tabs justify-content-center" id="categoryTabs" role="tablist">
             {% for category in categories %}
@@ -17,22 +19,20 @@
         <div class="tab-content" id="categoryTabsContent">
             {% for category in categories %}
             <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="content-{{ forloop.counter }}" role="tabpanel" aria-labelledby="tab-{{ forloop.counter }}">
-                <div class="row mt-3">
-                    {% for service in category.services %}
-                    <div class="col-md-4 mb-4">
-                        <div class="price-item border rounded shadow-sm p-3 h-100">
-                            <div class="price-header">
-                                <h3 class="text-primary">{{ service.name }}</h3>
-                                <h2><span>₽</span><strong>{{ service.price|floatformat:0 }}</strong></h2>
-                            </div>
-                            <div class="price-body">
-                                <ul>
-                                    <li><i class="far fa-check-circle text-success"></i>Длительность: {{ service.duration }}</li>
-                                    <li><i class="far fa-check-circle text-success"></i>{{ service.description }}</li>
-                                </ul>
-                            </div>
-                            <div class="price-footer">
-                                <a class="btn btn-success btn-block" href="{% url 'cart:add_to_cart' service.id %}">Добавить в корзину</a>
+                <div>
+                    {% for service in category.services.all %}
+                    <div class="price-item">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ service.name }}</h5>
+                                <p class="card-text">{{ service.description }}</p>
+                                <div class="price mb-2">{{ service.price|floatformat:0 }} ₽</div>
+                                <form method="post" action="{% url 'cart:add_to_cart' service.id %}" class="add-to-cart-form">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-success btn-block add-to-cart-btn">
+                                        <i class="fas fa-shopping-cart mr-2"></i>Добавить в корзину
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -41,9 +41,46 @@
             </div>
             {% endfor %}
         </div>
-        {% else %}
-        <p>Услуги не найдены.</p>
+        {% endif %}
+
+        {% if no_category_services %}
+        <h4 class="mt-4">Без категории</h4>
+        <div>
+            {% for service in no_category_services %}
+            <div class="price-item">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ service.name }}</h5>
+                        <p class="card-text">{{ service.description }}</p>
+                        <div class="price mb-2">{{ service.price|floatformat:0 }} ₽</div>
+                        <form method="post" action="{% url 'cart:add_to_cart' service.id %}" class="add-to-cart-form">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success btn-block add-to-cart-btn">
+                                <i class="fas fa-shopping-cart mr-2"></i>Добавить в корзину
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
         {% endif %}
     </div>
 </div>
+
+<!-- Фиксированная иконка корзины -->
+<a href="{% url 'cart:view_cart' %}" class="fixed-cart-icon" title="Перейти в корзину">
+    <i class="fas fa-shopping-cart"></i>
+    {% if cart_count and cart_count > 0 %}
+        <span class="cart-count">{{ cart_count }}</span>
+    {% endif %}
+</a>
+
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script src="/static/js/add_to_cart_effect.js"></script>
+    {# Убираем инициализацию карусели временно #}
+    {# <script src="/static/js/price_uslugi_carousel.js"></script> #}
 {% endblock %}

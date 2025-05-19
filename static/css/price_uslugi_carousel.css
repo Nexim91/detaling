@@ -1,0 +1,133 @@
+/* Owl Carousel custom styles for price_uslugi.html */
+.owl-carousel .price-item {
+    margin: 10px;
+    transition: box-shadow 0.3s, transform 0.3s;
+    box-shadow: 0 2px 12px rgba(32,44,69,0.08);
+}
+.owl-carousel .price-item:hover {
+    box-shadow: 0 8px 24px rgba(32,44,69,0.18);
+    transform: translateY(-6px) scale(1.03);
+    z-index: 2;
+}
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel .owl-nav button.owl-next {
+    background: #202C45;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 0 8px;
+    font-size: 22px;
+    transition: background 0.3s;
+}
+.owl-carousel .owl-nav button.owl-prev:hover,
+.owl-carousel .owl-nav button.owl-next:hover {
+    background: #E81C2E;
+    color: #fff;
+}
+.owl-carousel .owl-dots .owl-dot span {
+    background: #202C45;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+.owl-carousel .owl-dots .owl-dot.active span {
+    background: #E81C2E;
+    opacity: 1;
+}
+.owl-carousel .btn-success {
+    background: #39B972;
+    border: none;
+    color: #fff;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+.owl-carousel .btn-success:hover {
+    background: #2e8b57;
+}
+
+/* Анимация кнопки корзины */
+.add-to-cart-btn.cart-anim {
+    animation: cart-bounce 0.7s cubic-bezier(.36,1.5,.64,1);
+    box-shadow: 0 0 0 0.2rem #39B97280;
+}
+@keyframes cart-bounce {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.12); }
+    60% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+/* Всплывающее уведомление */
+.cart-toast {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 9999;
+    background: #39B972;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    box-shadow: 0 8px 32px rgba(32,44,69,0.18);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(-20px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.cart-toast.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+.cart-toast i {
+    font-size: 1.3em;
+    color: #fff;
+}
+
+/* Фиксированная иконка корзины внизу слева */
+.fixed-cart-icon {
+    position: fixed;
+    left: 30px;
+    bottom: 30px;
+    z-index: 1050;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 24px rgba(32,44,69,0.18);
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: box-shadow 0.2s, background 0.2s;
+    border: 2px solid #39B972;
+}
+.fixed-cart-icon:hover {
+    background: #39B972;
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(32,44,69,0.28);
+}
+.fixed-cart-icon .fa-shopping-cart {
+    font-size: 2em;
+    color: #39B972;
+    transition: color 0.2s;
+}
+.fixed-cart-icon:hover .fa-shopping-cart {
+    color: #fff;
+}
+.fixed-cart-icon .cart-count {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #E81C2E;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.9em;
+    padding: 2px 7px;
+    font-weight: bold;
+}

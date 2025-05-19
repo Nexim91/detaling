@@ -23,6 +23,10 @@
 
         <!-- Template Stylesheet -->
         <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        <!-- Custom carousel styles for price_uslugi.html -->
+        {% block extra_head %}
+        <link href="{% static 'css/price_uslugi_carousel.css' %}" rel="stylesheet">
+        {% endblock %}
     </head>
 
     <body>

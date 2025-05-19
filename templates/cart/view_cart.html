@@ -7,23 +7,45 @@
 <div class="container">
     <h3>Товары в корзине</h3>
     {% if items %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Услуга</th>
-                <th>Количество</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in items %}
-            <tr>
-                <td>{{ item.service.name }}</td>
-                <td>{{ item.quantity }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'cart:checkout' %}" class="btn btn-primary">Оформить заказ</a>
+    <form method="post" action="{% url 'cart:view_cart' %}">
+        {% csrf_token %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Услуга</th>
+                    <th>Количество</th>
+                    <th>Цена</th>
+                    <th>Сумма</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.service.name }}</td>
+                    <td>
+                        <input type="number" name="quantity_{{ item.id }}" value="{{ item.quantity }}" min="1" class="form-control" style="width:80px;display:inline-block;">
+                    </td>
+                    <td>{{ item.service.price|floatformat:0 }} ₽</td>
+                    <td>{{ item.line_total|floatformat:0 }} ₽</td>
+                    <td>
+                        <button type="submit" name="remove" value="{{ item.id }}" class="btn btn-sm btn-danger" title="Удалить"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="3" class="text-right">Итого:</th>
+                    <th>{{ cart_total|floatformat:0 }} ₽</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+        <button type="submit" name="update" value="1" class="btn btn-primary">Обновить корзину</button>
+        <a href="{% url 'cart:checkout' %}" class="btn btn-success ml-2">Оформить заказ</a>
+        <a href="{% url 'price_redirect' %}" class="btn btn-secondary ml-2">Вернуться к выбору услуг</a>
+    </form>
     {% else %}
     <p>Ваша корзина пуста.</p>
     {% endif %}

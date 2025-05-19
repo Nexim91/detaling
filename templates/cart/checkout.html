@@ -1,32 +1,64 @@
 {% extends "pricing/base/base_price.html" %}
 {% block title %}Оформление заказа{% endblock %}
 
-{% block page_header_title %}Оформление заказа{% endblock %}
+{% block page_header_title %}Подтверждение заказа{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h3>Подтвердите ваш заказ</h3>
+    <h3>Проверьте ваш заказ перед подтверждением</h3>
     {% if items %}
-    <table class="table">
-        <thead>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
             <tr>
                 <th>Услуга</th>
+                <th>Описание</th>
                 <th>Количество</th>
+                <th>Цена</th>
+                <th>Сумма</th>
             </tr>
         </thead>
         <tbody>
             {% for item in items %}
             <tr>
                 <td>{{ item.service.name }}</td>
+                <td>{{ item.service.description|default:'—' }}</td>
                 <td>{{ item.quantity }}</td>
+                <td>{{ item.service.price|floatformat:0 }} ₽</td>
+                <td>{{ item.service.price|floatformat:0|add:'0'|floatformat:0|add:'0' }}{{ item.service.price|floatformat:0 }} ₽</td>
             </tr>
             {% endfor %}
         </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="4" class="text-right">Итого:</th>
+                <th>
+                    {% with total=0 %}
+                    {% for item in items %}
+                        {% with line_total=item.service.price|floatformat:0|add:'0'|floatformat:0|add:'0' %}
+                            {% if forloop.first %}
+                                {% with total=line_total %}
+                                {% endwith %}
+                            {% else %}
+                                {% with total=total|add:line_total %}
+                                {% endwith %}
+                            {% endif %}
+                        {% endwith %}
+                    {% endfor %}
+                    {{ total|floatformat:0 }} ₽
+                    {% endwith %}
+                </th>
+            </tr>
+        </tfoot>
     </table>
-    <form method="post">
+    <form method="post" class="mb-3">
         {% csrf_token %}
-        <button type="submit" class="btn btn-success">Подтвердить заказ</button>
+        <button type="submit" class="btn btn-success btn-lg">Подтвердить заказ</button>
+        <a href="{% url 'cart:view_cart' %}" class="btn btn-secondary btn-lg ml-2">Вернуться в корзину</a>
+        <a href="{% url 'price_redirect' %}" class="btn btn-outline-primary btn-lg ml-2">К выбору услуг</a>
     </form>
+    <div class="alert alert-info mt-3">
+        После подтверждения заказа с вами свяжется менеджер для уточнения деталей.
+    </div>
     {% else %}
     <p>Ваша корзина пуста.</p>
     {% endif %}
