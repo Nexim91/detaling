@@ -2054,3 +2054,9 @@ a:focus {
 .footer .copyright p a:hover {
     color: #ffffff;
 }
+
+@media (max-width: 991.98px) {
+    .nav-bar .btn.btn-custom {
+        display: inline-block !important;
+    }
+}
