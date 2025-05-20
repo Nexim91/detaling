@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'bot',
     'accounts',
     'pricing',
-    'cart'
+    'cart',
+    'regbot',
 ]
 
 MIDDLEWARE = [
@@ -147,5 +148,8 @@ LOGOUT_REDIRECT_URL = '/'
 # Telegram bot settings for order notifications
 TELEGRAM_BOT_TOKEN = "5751249143:AAENKFBEpbazywwRhjtU-TQURPq0VxDH9ps"
 TELEGRAM_CHAT_ID = "1082586050"
+
+# Separate token for regbot Telegram bot
+REGBOT_TELEGRAM_BOT_TOKEN = "5182634283:AAHhStHLiYRAXwHMFwjw4D1cLuX578gFaTk"
 
 

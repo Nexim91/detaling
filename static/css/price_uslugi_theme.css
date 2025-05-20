@@ -1,0 +1,158 @@
+/* Modern and friendly theme for price_uslugi page */
+
+.price {
+    background: linear-gradient(135deg, #7bb7f0, #7bb7f0);
+    padding: 10px 0;
+    min-height: 5vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #f0f0f0;
+}
+
+.price > .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Cards container grid */
+#servicesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px 24px;
+    align-items: stretch;
+}
+
+/* Card styles */
+.price-item {
+    background: #ffffff22;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    padding: 20px 16px 18px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: unset;
+    height: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    color: #fff;
+}
+
+.price-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    border-color: #00bfff;
+}
+
+/* Title */
+.price-item h5.card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #00bfff;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Description */
+.price-item p.card-text {
+    font-size: 0.98rem;
+    color: #d0e8ff;
+    margin-bottom: 14px;
+    min-height: 48px;
+    text-align: center;
+}
+
+/* Price */
+.price-item .price {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #ff6f61;
+    margin-bottom: 16px;
+    text-shadow: 1px 1px 4px rgba(255,111,97,0.5);
+    text-align: center;
+}
+
+/* Add to cart button */
+.price-item form button.btn-success {
+    background: linear-gradient(45deg, #00bfff, #0077b6);
+    border: none;
+    border-radius: 30px;
+    padding: 12px 0;
+    font-weight: 700;
+    font-size: 1.08rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #662020;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.18);
+}
+
+.price-item form button.btn-success:hover {
+    background: linear-gradient(45deg, #0077b6, #00bfff);
+    box-shadow: 0 4px 16px rgba(0, 123, 255, 0.25);
+}
+
+.price-item form button.btn-success i {
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+}
+
+.price-item form button.btn-success:hover i {
+    transform: scale(1.3);
+}
+
+/* Top colored line */
+.price-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #00bfff, #0077b6, #00bfff);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    transition: background 0.5s ease;
+}
+
+.price-item:hover::before {
+    animation: slideGradient 2s linear infinite;
+}
+
+@keyframes slideGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    #servicesGrid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .price-item {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    #servicesGrid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+    .price-item {
+        padding: 12px 6px 14px 6px;
+    }
+}

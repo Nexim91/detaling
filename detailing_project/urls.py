@@ -23,6 +23,8 @@ from django.conf.urls.static import static
 
 from django.urls import include, path
 
+from regbot.views import telegram_webhook
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('services.urls')),
@@ -32,6 +34,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('pricing/', include('pricing.urls')),
     path('cart/', include('cart.urls')),
+    path('regbot/webhook/', telegram_webhook, name='regbot-webhook'),
 ]
 from django.conf import settings
 from django.conf.urls.static import static
