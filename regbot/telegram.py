@@ -39,14 +39,8 @@ def build_categories_keyboard(categories):
 
 def build_services_keyboard(services):
     keyboard = []
-    row = []
-    for idx, service in enumerate(services, 1):
-        row.append({"text": f"{service.name} - {service.price} руб.", "callback_data": f"add_{service.id}"})
-        if idx % 2 == 0:
-            keyboard.append(row)
-            row = []
-    if row:
-        keyboard.append(row)
+    for service in services:
+        keyboard.append([{"text": f"{service.name} - {service.price} руб.", "callback_data": f"add_{service.id}"}])
     keyboard.append([{"text": "Просмотреть корзину", "callback_data": "view_cart"}])
     keyboard.append([{"text": "Назад к категориям", "callback_data": "back_to_categories"}])
     keyboard.append([{"text": "В меню", "callback_data": "menu"}])
@@ -162,7 +156,7 @@ def handle_update(update):
                 order_details += "Машины пользователя:\n"
                 if cars:
                     for car in cars:
-                        order_details += f"- {car.make} {car.model} {car.year} ({car.license_plate})\n"
+                        order_details += f"- {car.make} {car.model} {car.year} (цвет: {car.color})\n"
                 else:
                     order_details += "Нет данных о машинах\n"
                 for item in cart:
@@ -263,6 +257,14 @@ def handle_update(update):
             return
         if data == "menu_logout":
             user_states.pop(chat_id, None)
+            user_carts.pop(chat_id, None)
+            # Открепляем chat_id от UserProfile, чтобы Telegram-аккаунт не был связан с пользователем
+            try:
+                profile = UserProfile.objects.get(chat_id=chat_id)
+                profile.chat_id = None
+                profile.save()
+            except UserProfile.DoesNotExist:
+                pass
             send_message(chat_id, "Вы вышли из профиля. Для повторного входа используйте регистрацию или войдите на сайте.")
             return
         if data == "menu":
@@ -451,6 +453,10 @@ def handle_update(update):
                         "chat_id": chat_id
                     }
                 )
+                # Гарантируем, что chat_id всегда актуален
+                if profile.chat_id != chat_id:
+                    profile.chat_id = chat_id
+                    profile.save()
                 # Универсальная проверка наличия машин у профиля
                 cars_qs = getattr(profile, 'cars', getattr(profile, 'car_set', None))
                 if cars_qs is not None and not cars_qs.exists():
