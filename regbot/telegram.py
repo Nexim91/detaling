@@ -184,15 +184,58 @@ def handle_update(update):
             send_message(chat_id, "Выберите категорию услуг:", reply_markup=keyboard)
             return
 
-        if data == "menu":
-            menu_text = (
-                "Доступные команды:\n"
-                "/register - Регистрация\n"
-                "/services - Просмотр услуг\n"
-                "/cancel - Отмена текущего действия\n"
-                "/help - Помощь\n"
+        if data == "menu_register":
+            send_message(chat_id, "Пожалуйста, введите ваше имя и фамилию через пробел:")
+            user_states[chat_id] = {"step": "get_name", "data": {}}
+            return
+        if data == "menu_services":
+            categories = Category.objects.all()
+            if categories:
+                keyboard = build_categories_keyboard(categories)
+                send_message(chat_id, "Выберите категорию услуг:", reply_markup=keyboard)
+            else:
+                send_message(chat_id, "Категории услуг не найдены.")
+            return
+        if data == "menu_cancel":
+            if chat_id in user_states:
+                user_states.pop(chat_id)
+                send_message(chat_id, "Текущее действие отменено.")
+            else:
+                send_message(chat_id, "Нет активных действий для отмены.")
+            return
+        if data == "menu_help":
+            help_text = (
+                "Это телеграм-бот для регистрации и заказа услуг.\n"
+                "Используйте кнопки ниже для управления ботом."
             )
-            send_message(chat_id, menu_text)
+            keyboard = {
+                "inline_keyboard": [
+                    [
+                        {"text": "Регистрация", "callback_data": "menu_register"},
+                        {"text": "Просмотр услуг", "callback_data": "menu_services"}
+                    ],
+                    [
+                        {"text": "Отмена", "callback_data": "menu_cancel"},
+                        {"text": "В меню", "callback_data": "menu"}
+                    ]
+                ]
+            }
+            send_message(chat_id, help_text, reply_markup=keyboard)
+            return
+        if data == "menu":
+            keyboard = {
+                "inline_keyboard": [
+                    [
+                        {"text": "Регистрация", "callback_data": "menu_register"},
+                        {"text": "Просмотр услуг", "callback_data": "menu_services"}
+                    ],
+                    [
+                        {"text": "Отмена", "callback_data": "menu_cancel"},
+                        {"text": "Помощь", "callback_data": "menu_help"}
+                    ]
+                ]
+            }
+            send_message(chat_id, "Доступные команды:", reply_markup=keyboard)
             return
 
     if not message:
@@ -204,30 +247,56 @@ def handle_update(update):
     state = user_states.get(chat_id, {"step": None, "data": {}})
 
     if text == "/start":
-        send_message(chat_id, "Добро пожаловать! Чтобы зарегистрироваться, отправьте команду /register\nДля просмотра меню используйте /menu")
+        keyboard = {
+            "inline_keyboard": [
+                [
+                    {"text": "Регистрация", "callback_data": "menu_register"},
+                    {"text": "Просмотр услуг", "callback_data": "menu_services"}
+                ],
+                [
+                    {"text": "Отмена", "callback_data": "menu_cancel"},
+                    {"text": "Помощь", "callback_data": "menu_help"}
+                ]
+            ]
+        }
+        send_message(chat_id, "Добро пожаловать! Выберите действие:", reply_markup=keyboard)
         user_states.pop(chat_id, None)
         return
 
     if text == "/menu":
-        menu_text = (
-            "Доступные команды:\n"
-            "/register - Регистрация\n"
-            "/services - Просмотр услуг\n"
-            "/cancel - Отмена текущего действия\n"
-            "/help - Помощь\n"
-        )
-        send_message(chat_id, menu_text)
+        keyboard = {
+            "inline_keyboard": [
+                [
+                    {"text": "Регистрация", "callback_data": "menu_register"},
+                    {"text": "Просмотр услуг", "callback_data": "menu_services"}
+                ],
+                [
+                    {"text": "Отмена", "callback_data": "menu_cancel"},
+                    {"text": "Помощь", "callback_data": "menu_help"}
+                ]
+            ]
+        }
+        send_message(chat_id, "Доступные команды:", reply_markup=keyboard)
         return
 
     if text == "/help":
         help_text = (
             "Это телеграм-бот для регистрации и заказа услуг.\n"
-            "Используйте /register для регистрации.\n"
-            "Используйте /services для просмотра услуг.\n"
-            "Используйте /add <номер_услуги> для добавления услуги в корзину.\n"
-            "Используйте /cancel для отмены текущего действия."
+            "Используйте кнопки ниже для управления ботом."
         )
-        send_message(chat_id, help_text)
+        keyboard = {
+            "inline_keyboard": [
+                [
+                    {"text": "Регистрация", "callback_data": "menu_register"},
+                    {"text": "Просмотр услуг", "callback_data": "menu_services"}
+                ],
+                [
+                    {"text": "Отмена", "callback_data": "menu_cancel"},
+                    {"text": "В меню", "callback_data": "menu"}
+                ]
+            ]
+        }
+        send_message(chat_id, help_text, reply_markup=keyboard)
         return
 
     if text == "/cancel":
