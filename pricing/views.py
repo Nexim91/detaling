@@ -1,8 +1,5 @@
 from django.shortcuts import render
 from .models import Category, Service
-from django.contrib.auth.decorators import login_required
-
-@login_required
 def price_uslugi_view(request):
     categories = Category.objects.prefetch_related('services').all()
     no_category_services = Service.objects.filter(category__isnull=True)

@@ -5,57 +5,43 @@
 {% block content %}
 <div class="price" style="background: none; padding-top: 0;">
     <div class="container">
-        <p>Категорий: {{ categories|length }}</p>
-        <p>Услуг без категории: {{ no_category_services|length }}</p>
-        {% if categories %}
-        <ul class="nav nav-tabs justify-content-center" id="categoryTabs" role="tablist">
+        <div class="category-filter mb-4 text-center">
+            <button class="btn btn-outline-primary mx-1 filter-btn active" data-filter="all">Все категории</button>
             {% for category in categories %}
-            <li class="nav-item" role="presentation">
-                <a class="nav-link {% if forloop.first %}active{% endif %} text-white bg-primary rounded m-1 p-3" id="tab-{{ forloop.counter }}" data-toggle="tab" href="#content-{{ forloop.counter }}" role="tab" aria-controls="content-{{ forloop.counter }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">{{ category.name }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-
-        <div class="tab-content" id="categoryTabsContent">
-            {% for category in categories %}
-            <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="content-{{ forloop.counter }}" role="tabpanel" aria-labelledby="tab-{{ forloop.counter }}">
-                <div>
-                    {% for service in category.services.all %}
-                    <div class="price-item">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ service.name }}</h5>
-                                <p class="card-text">{{ service.description }}</p>
-                                <div class="price mb-2">{{ service.price|floatformat:0 }} ₽</div>
-                                <form method="post" action="{% url 'cart:add_to_cart' service.id %}" class="add-to-cart-form">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-success btn-block add-to-cart-btn">
-                                        <i class="fas fa-shopping-cart mr-2"></i>Добавить в корзину
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+            <button class="btn btn-outline-primary mx-1 filter-btn" data-filter="category-{{ category.id }}">{{ category.name }}</button>
             {% endfor %}
         </div>
-        {% endif %}
 
-        {% if no_category_services %}
-        <h4 class="mt-4">Без категории</h4>
-        <div>
+        <div class="row" id="servicesGrid">
+            {% for category in categories %}
+                {% for service in category.services.all %}
+                <div class="col-md-4 col-sm-6 mb-4 price-item category-{{ category.id }}">
+                    <div class="card h-100 shadow-sm rounded-lg border-0">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-primary font-weight-bold">{{ service.name }}</h5>
+                            <p class="card-text text-muted flex-grow-1">{{ service.description }}</p>
+                            <div class="price mb-3 text-danger font-weight-bold h5">{{ service.price|floatformat:0 }} ₽</div>
+                            <form method="post" action="{% url 'cart:add_to_cart' service.id %}" class="add-to-cart-form mt-auto">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success btn-block add-to-cart-btn rounded-pill shadow-sm">
+                                    <i class="fas fa-shopping-cart mr-2"></i>Добавить в корзину
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endfor %}
             {% for service in no_category_services %}
-            <div class="price-item">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ service.name }}</h5>
-                        <p class="card-text">{{ service.description }}</p>
-                        <div class="price mb-2">{{ service.price|floatformat:0 }} ₽</div>
-                        <form method="post" action="{% url 'cart:add_to_cart' service.id %}" class="add-to-cart-form">
+            <div class="col-md-4 col-sm-6 mb-4 price-item no-category">
+                <div class="card h-100 shadow-sm rounded-lg border-0">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-primary font-weight-bold">{{ service.name }}</h5>
+                        <p class="card-text text-muted flex-grow-1">{{ service.description }}</p>
+                        <div class="price mb-3 text-danger font-weight-bold h5">{{ service.price|floatformat:0 }} ₽</div>
+                        <form method="post" action="{% url 'cart:add_to_cart' service.id %}" class="add-to-cart-form mt-auto">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-success btn-block add-to-cart-btn">
+                            <button type="submit" class="btn btn-success btn-block add-to-cart-btn rounded-pill shadow-sm">
                                 <i class="fas fa-shopping-cart mr-2"></i>Добавить в корзину
                             </button>
                         </form>
@@ -64,7 +50,6 @@
             </div>
             {% endfor %}
         </div>
-        {% endif %}
     </div>
 </div>
 
@@ -78,9 +63,35 @@
 
 {% endblock %}
 
+{% load static %}
 {% block extra_js %}
     {{ block.super }}
-    <script src="/static/js/add_to_cart_effect.js"></script>
-    {# Убираем инициализацию карусели временно #}
-    {# <script src="/static/js/price_uslugi_carousel.js"></script> #}
+    <script src="{% static 'js/add_to_cart_effect.js' %}"></script>
+    <script src="{% static 'js/price_uslugi_carousel.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const services = document.querySelectorAll('#servicesGrid .price-item');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const filter = button.getAttribute('data-filter');
+
+                    services.forEach(service => {
+                        if (filter === 'all') {
+                            service.style.display = 'block';
+                        } else {
+                            if (service.classList.contains(filter)) {
+                                service.style.display = 'block';
+                            } else {
+                                service.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 {% endblock %}

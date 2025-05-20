@@ -1,60 +1,117 @@
-/* Owl Carousel custom styles for price_uslugi.html */
-.owl-carousel .price-item {
-    margin: 10px;
-    transition: box-shadow 0.3s, transform 0.3s;
-    box-shadow: 0 2px 12px rgba(32,44,69,0.08);
+/* Стили для украшения карточек услуг с эффектами */
+
+.price-item {
+    background: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
-.owl-carousel .price-item:hover {
-    box-shadow: 0 8px 24px rgba(32,44,69,0.18);
-    transform: translateY(-6px) scale(1.03);
-    z-index: 2;
+
+.price-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
 }
-.owl-carousel .owl-nav button.owl-prev,
-.owl-carousel .owl-nav button.owl-next {
-    background: #202C45;
-    color: #fff;
+
+.price-item h5.card-title {
+    color: #0056b3;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.price-item p.card-text {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    min-height: 60px;
+}
+
+.price-item .price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #d9534f;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(217,83,79,0.7);
+}
+
+.price-item form button.btn-success {
+    background: linear-gradient(45deg, #28a745, #218838);
     border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin: 0 8px;
-    font-size: 22px;
-    transition: background 0.3s;
-}
-.owl-carousel .owl-nav button.owl-prev:hover,
-.owl-carousel .owl-nav button.owl-next:hover {
-    background: #E81C2E;
-    color: #fff;
-}
-.owl-carousel .owl-dots .owl-dot span {
-    background: #202C45;
-    opacity: 0.5;
-    transition: opacity 0.3s;
-}
-.owl-carousel .owl-dots .owl-dot.active span {
-    background: #E81C2E;
-    opacity: 1;
-}
-.owl-carousel .btn-success {
-    background: #39B972;
-    border: none;
-    color: #fff;
     border-radius: 30px;
-    font-weight: 600;
-    transition: background 0.3s;
+    padding: 12px 0;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
-.owl-carousel .btn-success:hover {
-    background: #2e8b57;
+
+.price-item form button.btn-success i {
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
 }
+
+.price-item form button.btn-success:hover {
+    background: linear-gradient(45deg, #218838, #1e7e34);
+    box-shadow: 0 6px 15px rgba(33, 142, 52, 0.7);
+}
+
+.price-item form button.btn-success:hover i {
+    transform: scale(1.2);
+}
+
+/* Добавим иконку корзины слева в кнопке */
+.price-item form button.btn-success i::before {
+    content: "\f07a"; /* FontAwesome shopping-cart unicode */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+/* Дополнительный декоративный элемент - верхняя цветная линия */
+.price-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #007bff, #6610f2, #6f42c1);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+/* Анимация при наведении на карточку */
+.price-item:hover::before {
+    animation: slideGradient 2s linear infinite;
+}
+
+@keyframes slideGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+/* Стили корзины оставлены без изменений */
 
 /* Анимация кнопки корзины */
 .add-to-cart-btn.cart-anim {
     animation: cart-bounce 0.7s cubic-bezier(.36,1.5,.64,1);
-    box-shadow: 0 0 0 0.2rem #39B97280;
+    box-shadow: 0 0 0 0.3rem #32cd3280;
 }
+
 @keyframes cart-bounce {
     0% { transform: scale(1); }
-    30% { transform: scale(1.12); }
+    30% { transform: scale(1.15); }
     60% { transform: scale(0.95); }
     100% { transform: scale(1); }
 }
@@ -65,12 +122,12 @@
     top: 30px;
     right: 30px;
     z-index: 9999;
-    background: #39B972;
+    background: #ff4500;
     color: #fff;
     padding: 14px 28px;
     border-radius: 30px;
     font-size: 1.1rem;
-    box-shadow: 0 8px 32px rgba(32,44,69,0.18);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.7);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s, transform 0.3s;
@@ -95,9 +152,9 @@
     left: 30px;
     bottom: 30px;
     z-index: 1050;
-    background: #fff;
+    background: #222;
     border-radius: 50%;
-    box-shadow: 0 4px 24px rgba(32,44,69,0.18);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.8);
     width: 64px;
     height: 64px;
     display: flex;
@@ -105,16 +162,16 @@
     justify-content: center;
     cursor: pointer;
     transition: box-shadow 0.2s, background 0.2s;
-    border: 2px solid #39B972;
+    border: 2px solid #ff4500;
 }
 .fixed-cart-icon:hover {
-    background: #39B972;
+    background: #ff4500;
     color: #fff;
-    box-shadow: 0 8px 32px rgba(32,44,69,0.28);
+    box-shadow: 0 8px 32px rgba(255,69,0,0.9);
 }
 .fixed-cart-icon .fa-shopping-cart {
     font-size: 2em;
-    color: #39B972;
+    color: #ff4500;
     transition: color 0.2s;
 }
 .fixed-cart-icon:hover .fa-shopping-cart {
@@ -124,7 +181,7 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    background: #E81C2E;
+    background: #333;
     color: #fff;
     border-radius: 50%;
     font-size: 0.9em;

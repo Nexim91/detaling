@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
     <head>
@@ -24,8 +25,13 @@
         <!-- Template Stylesheet -->
         <link href="{% static 'css/style.css' %}" rel="stylesheet">
         <!-- Custom carousel styles for price_uslugi.html -->
+        {% load static %}
         {% block extra_head %}
         <link href="{% static 'css/price_uslugi_carousel.css' %}" rel="stylesheet">
+        {% endblock %}
+        {% block extra_js %}
+        <script src="{% static 'js/add_to_cart_effect.js' %}"></script>
+        <script src="{% static 'js/price_uslugi_carousel.js' %}"></script>
         {% endblock %}
     </head>
 
