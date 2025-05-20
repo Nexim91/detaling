@@ -174,6 +174,45 @@ def handle_update(update):
                 NOTIFY_CHAT_ID = settings.TELEGRAM_NOTIFY_CHAT_ID
                 send_telegram_message(NOTIFY_BOT_TOKEN, NOTIFY_CHAT_ID, order_details)
 
+                # Отправка уведомления через bot (основной бот, не regbot)
+                from bot.telegram import send_telegram_message as send_mainbot_message
+                MAIN_BOT_TOKEN = getattr(settings, 'TELEGRAM_BOT_TOKEN', None)
+                MAIN_CHAT_ID = getattr(settings, 'TELEGRAM_CHAT_ID', None)
+                if MAIN_BOT_TOKEN and MAIN_CHAT_ID:
+                    mainbot_msg = f"[ЗАКАЗ ИЗ ТЕЛЕГРАМ-БОТА]\n"
+                    mainbot_msg += f"Новый заказ #{order.id}\n"
+                    mainbot_msg += f"Пользователь: {user.get_full_name()} ({user.email})\n"
+                    mainbot_msg += f"Телефон: {profile.phone if profile else 'Нет данных'}\n"
+                    mainbot_msg += f"Chat ID: {profile.chat_id if profile else 'Нет данных'}\n"
+                    mainbot_msg += f"ID пользователя: {user.id}\n"
+                    # Информация, которую пользователь заполнил при регистрации (Telegram)
+                    reg_info = []
+                    reg_info.append(f"Имя: {profile.first_name if profile else '-'}")
+                    reg_info.append(f"Фамилия: {profile.last_name if profile else '-'}")
+                    reg_info.append(f"Email: {profile.email if profile else '-'}")
+                    reg_info.append(f"Телефон: {profile.phone if profile else '-'}")
+                    reg_info.append(f"Chat ID: {profile.chat_id if profile else '-'}")
+                    # Информация о машине, которую пользователь указал при регистрации (Telegram)
+                    last_car = None
+                    cars_list = list(cars)
+                    if cars_list:
+                        last_car = cars_list[-1]
+                    if last_car:
+                        reg_info.append("--- Данные автомобиля, указанные при регистрации в Telegram ---")
+                        reg_info.append(f"Марка: {last_car.make}")
+                        reg_info.append(f"Модель: {last_car.model}")
+                        reg_info.append(f"Год: {last_car.year}")
+                        reg_info.append(f"Цвет: {last_car.color}")
+                    else:
+                        reg_info.append("Данные автомобиля не указаны")
+                    mainbot_msg += "\n".join(reg_info) + "\n"
+                    # Услуги
+                    mainbot_msg += "Услуги:\n"
+                    for item in cart:
+                        mainbot_msg += f"- {item['name']} x 1 ({item['price']} руб.)\n"
+                    mainbot_msg += f"Итого: {sum(item['price'] for item in cart)} руб.\n"
+                    send_mainbot_message(MAIN_BOT_TOKEN, MAIN_CHAT_ID, mainbot_msg)
+
                 send_message(chat_id, "Спасибо за заказ! Мы свяжемся с вами в ближайшее время.")
                 user_carts[chat_id] = []
             return
@@ -222,6 +261,10 @@ def handle_update(update):
             }
             send_message(chat_id, help_text, reply_markup=keyboard)
             return
+        if data == "menu_logout":
+            user_states.pop(chat_id, None)
+            send_message(chat_id, "Вы вышли из профиля. Для повторного входа используйте регистрацию или войдите на сайте.")
+            return
         if data == "menu":
             keyboard = {
                 "inline_keyboard": [
@@ -231,6 +274,9 @@ def handle_update(update):
                     ],
                     [
                         {"text": "Отмена", "callback_data": "menu_cancel"},
+                        {"text": "Выйти из профиля", "callback_data": "menu_logout"}
+                    ],
+                    [
                         {"text": "Помощь", "callback_data": "menu_help"}
                     ]
                 ]
@@ -255,6 +301,9 @@ def handle_update(update):
                 ],
                 [
                     {"text": "Отмена", "callback_data": "menu_cancel"},
+                    {"text": "Выйти из профиля", "callback_data": "menu_logout"}
+                ],
+                [
                     {"text": "Помощь", "callback_data": "menu_help"}
                 ]
             ]
@@ -272,6 +321,9 @@ def handle_update(update):
                 ],
                 [
                     {"text": "Отмена", "callback_data": "menu_cancel"},
+                    {"text": "Выйти из профиля", "callback_data": "menu_logout"}
+                ],
+                [
                     {"text": "Помощь", "callback_data": "menu_help"}
                 ]
             ]
@@ -364,13 +416,13 @@ def handle_update(update):
             send_message(chat_id, "Пожалуйста, введите корректный год выпуска (число).")
             return
         state["data"]["car_year"] = int(text)
-        send_message(chat_id, "Введите госномер автомобиля:")
-        state["step"] = "get_car_license"
+        send_message(chat_id, "Введите цвет автомобиля:")
+        state["step"] = "get_car_color"
         user_states[chat_id] = state
         return
 
-    if state["step"] == "get_car_license":
-        state["data"]["car_license"] = text
+    if state["step"] == "get_car_color":
+        state["data"]["car_color"] = text
 
         data = state["data"]
         form_data = {
@@ -399,23 +451,19 @@ def handle_update(update):
                         "chat_id": chat_id
                     }
                 )
-                if created:
+                # Универсальная проверка наличия машин у профиля
+                cars_qs = getattr(profile, 'cars', getattr(profile, 'car_set', None))
+                if cars_qs is not None and not cars_qs.exists():
                     Car.objects.create(
                         user_profile=profile,
                         make=data["car_make"],
                         model=data["car_model"],
                         year=data["car_year"],
-                        color=data["car_license"]
+                        color=data.get("car_color", "")
                     )
+                if created:
                     send_message(chat_id, f"Регистрация успешна, {data['first_name']}! Вы можете просмотреть услуги командой /services")
                 else:
-                    # Обновляем профиль, если он уже существует
-                    profile.first_name = data["first_name"]
-                    profile.last_name = data["last_name"]
-                    profile.phone = data["phone"]
-                    profile.email = data["email"]
-                    profile.chat_id = chat_id
-                    profile.save()
                     send_message(chat_id, f"Ваш профиль обновлён, {data['first_name']}! Вы можете просмотреть услуги командой /services")
             except Exception as e:
                 logger.error(f"Ошибка при создании пользователя или профиля: {e}")
