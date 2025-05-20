@@ -3,21 +3,12 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from accounts.models import UserProfile, Car
 from accounts.forms_new import UserRegistrationForm
-from pricing.models import Service
+from pricing.models import Service, Category
 
-# Removed import of telegram package to avoid ModuleNotFoundError
-# from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-
-# Instead, use raw JSON for inline keyboard markup in send_message function
-
-# Separate token and API URL for this bot to allow independent connection
 REGBOT_TELEGRAM_BOT_TOKEN = settings.REGBOT_TELEGRAM_BOT_TOKEN
 REGBOT_TELEGRAM_API_URL = f"https://api.telegram.org/bot{REGBOT_TELEGRAM_BOT_TOKEN}"
 
-# In-memory user states for dialog (in production use persistent storage)
 user_states = {}
-
-# In-memory cart storage per user chat_id
 user_carts = {}
 
 def send_message(chat_id, text, reply_markup=None):
@@ -32,20 +23,33 @@ def send_message(chat_id, text, reply_markup=None):
     requests.post(url, json=payload)
 
 import logging
-
 logger = logging.getLogger(__name__)
 
 def build_categories_keyboard(categories):
     keyboard = []
-    for category in categories:
-        keyboard.append([{"text": category, "callback_data": f"category_{category}"}])
+    row = []
+    for idx, category in enumerate(categories, 1):
+        row.append({"text": category.name, "callback_data": f"category_{category.id}"})
+        if idx % 3 == 0:
+            keyboard.append(row)
+            row = []
+    if row:
+        keyboard.append(row)
     return {"inline_keyboard": keyboard}
 
 def build_services_keyboard(services):
     keyboard = []
-    for service in services:
-        keyboard.append([{"text": f"{service.name} - {service.price} руб.", "callback_data": f"add_{service.id}"}])
+    row = []
+    for idx, service in enumerate(services, 1):
+        row.append({"text": f"{service.name} - {service.price} руб.", "callback_data": f"add_{service.id}"})
+        if idx % 2 == 0:
+            keyboard.append(row)
+            row = []
+    if row:
+        keyboard.append(row)
     keyboard.append([{"text": "Просмотреть корзину", "callback_data": "view_cart"}])
+    keyboard.append([{"text": "Назад к категориям", "callback_data": "back_to_categories"}])
+    keyboard.append([{"text": "В меню", "callback_data": "menu"}])
     return {"inline_keyboard": keyboard}
 
 def build_cart_keyboard(cart_items):
@@ -66,10 +70,14 @@ def handle_update(update):
         data = callback_query["data"]
 
         if data.startswith("category_"):
-            category = data[len("category_"):]
-            services = Service.objects.filter(category=category)
-            keyboard = build_services_keyboard(services)
-            send_message(chat_id, f"Услуги категории {category}:", reply_markup=keyboard)
+            category_id = int(data[len("category_"):])
+            try:
+                category = Category.objects.get(id=category_id)
+                services = category.services.all()
+                keyboard = build_services_keyboard(services)
+                send_message(chat_id, f"Услуги категории {category.name}:", reply_markup=keyboard)
+            except Category.DoesNotExist:
+                send_message(chat_id, "Категория не найдена.")
             return
 
         if data.startswith("add_"):
@@ -113,9 +121,67 @@ def handle_update(update):
             if not cart:
                 send_message(chat_id, "Ваша корзина пуста.")
             else:
-                # Здесь можно добавить логику оформления заказа
+                from bot.telegram import send_telegram_message
+                from django.conf import settings
+                from cart.models import Order, OrderItem
+                from django.contrib.auth.models import User
+
+                # Получаем пользователя Django по chat_id (нужно связать chat_id с user)
+                try:
+                    profile = UserProfile.objects.get(chat_id=chat_id)
+                    user = profile.user
+                except UserProfile.DoesNotExist:
+                    user = None
+
+                if user is None:
+                    send_message(chat_id, "Пользователь не найден. Пожалуйста, зарегистрируйтесь.")
+                    return
+
+                # Создаем заказ
+                order = Order.objects.create(user=user)
+
+                # Добавляем позиции заказа
+                for item in cart:
+                    service_id = item['id']
+                    quantity = 1  # Можно расширить для учета количества
+                    service = Service.objects.get(id=service_id)
+                    OrderItem.objects.create(order=order, service=service, quantity=quantity)
+
+                # Получаем профиль пользователя
+                try:
+                    profile = UserProfile.objects.get(user=user)
+                except UserProfile.DoesNotExist:
+                    profile = None
+
+                # Получаем машины пользователя
+                cars = Car.objects.filter(user_profile=profile) if profile else []
+
+                # Формируем текст уведомления
+                order_details = f"Новый заказ #{order.id} от пользователя {user.get_full_name()} ({user.email}):\n"
+                order_details += f"Телефон: {profile.phone if profile else 'Нет данных'}\n"
+                order_details += "Машины пользователя:\n"
+                if cars:
+                    for car in cars:
+                        order_details += f"- {car.make} {car.model} {car.year} ({car.license_plate})\n"
+                else:
+                    order_details += "Нет данных о машинах\n"
+                for item in cart:
+                    order_details += f"- {item['name']} x {1}\n"
+                order_details += f"Итого: {sum(item['price'] for item in cart)} руб."
+
+                # Отправляем уведомление
+                NOTIFY_BOT_TOKEN = settings.TELEGRAM_NOTIFY_BOT_TOKEN
+                NOTIFY_CHAT_ID = settings.TELEGRAM_NOTIFY_CHAT_ID
+                send_telegram_message(NOTIFY_BOT_TOKEN, NOTIFY_CHAT_ID, order_details)
+
                 send_message(chat_id, "Спасибо за заказ! Мы свяжемся с вами в ближайшее время.")
                 user_carts[chat_id] = []
+            return
+
+        if data == "back_to_categories":
+            categories = Category.objects.all()
+            keyboard = build_categories_keyboard(categories)
+            send_message(chat_id, "Выберите категорию услуг:", reply_markup=keyboard)
             return
 
         if data == "menu":
@@ -237,7 +303,6 @@ def handle_update(update):
     if state["step"] == "get_car_license":
         state["data"]["car_license"] = text
 
-        # Попытка создать пользователя и профиль
         data = state["data"]
         form_data = {
             "username": data["email"],
@@ -248,29 +313,44 @@ def handle_update(update):
             "last_name": data["last_name"],
         }
         form = UserRegistrationForm(form_data)
+        logger.info(f"Registration form data: {form_data}")
+        logger.info(f"Form valid: {form.is_valid()}")
+        if not form.is_valid():
+            logger.info(f"Form errors: {form.errors}")
         if form.is_valid():
-            user = form.save()
-            # Проверяем, существует ли профиль для пользователя
-            profile, created = UserProfile.objects.get_or_create(
-                user=user,
-                defaults={
-                    "first_name": data["first_name"],
-                    "last_name": data["last_name"],
-                    "phone": data["phone"],
-                    "email": data["email"]
-                }
-            )
-            if created:
-                Car.objects.create(
-                    user_profile=profile,
-                    make=data["car_make"],
-                    model=data["car_model"],
-                    year=data["car_year"],
-                    license_plate=data["car_license"]
+            try:
+                user = form.save()
+                profile, created = UserProfile.objects.get_or_create(
+                    user=user,
+                    defaults={
+                        "first_name": data["first_name"],
+                        "last_name": data["last_name"],
+                        "phone": data["phone"],
+                        "email": data["email"],
+                        "chat_id": chat_id
+                    }
                 )
-                send_message(chat_id, f"Регистрация успешна, {data['first_name']}! Вы можете просмотреть услуги командой /services")
-            else:
-                send_message(chat_id, "Профиль пользователя уже существует. Пожалуйста, войдите в систему.")
+                if created:
+                    Car.objects.create(
+                        user_profile=profile,
+                        make=data["car_make"],
+                        model=data["car_model"],
+                        year=data["car_year"],
+                        color=data["car_license"]
+                    )
+                    send_message(chat_id, f"Регистрация успешна, {data['first_name']}! Вы можете просмотреть услуги командой /services")
+                else:
+                    # Обновляем профиль, если он уже существует
+                    profile.first_name = data["first_name"]
+                    profile.last_name = data["last_name"]
+                    profile.phone = data["phone"]
+                    profile.email = data["email"]
+                    profile.chat_id = chat_id
+                    profile.save()
+                    send_message(chat_id, f"Ваш профиль обновлён, {data['first_name']}! Вы можете просмотреть услуги командой /services")
+            except Exception as e:
+                logger.error(f"Ошибка при создании пользователя или профиля: {e}")
+                send_message(chat_id, "Произошла ошибка при регистрации. Пожалуйста, попробуйте позже.")
         else:
             if 'username' in form.errors and 'A user with that username already exists.' in form.errors['username']:
                 send_message(chat_id, "Пользователь с таким email уже зарегистрирован. Пожалуйста, используйте другой email или войдите в систему.")
@@ -282,12 +362,12 @@ def handle_update(update):
         return
 
     if text == "/services":
-        services = Service.objects.all()
-        if services:
-            keyboard = build_services_keyboard(services)
-            send_message(chat_id, "Доступные услуги:", reply_markup=keyboard)
+        categories = Category.objects.all()
+        if categories:
+            keyboard = build_categories_keyboard(categories)
+            send_message(chat_id, "Выберите категорию услуг:", reply_markup=keyboard)
         else:
-            send_message(chat_id, "Услуги не найдены.")
+            send_message(chat_id, "Категории услуг не найдены.")
         return
 
     if text.startswith("/add"):
@@ -296,7 +376,8 @@ def handle_update(update):
             service_id = int(parts[1])
             try:
                 service = Service.objects.get(id=service_id)
-                # TODO: связать с пользователем Telegram, для упрощения пропущено
+                cart = user_carts.setdefault(chat_id, [])
+                cart.append({"id": service.id, "name": service.name, "price": service.price})
                 send_message(chat_id, f"Услуга '{service.name}' добавлена в корзину.")
             except Service.DoesNotExist:
                 send_message(chat_id, "Услуга с таким номером не найдена.")

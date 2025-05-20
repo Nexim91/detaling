@@ -9,7 +9,7 @@ class UserProfileForm(forms.ModelForm):
 class CarForm(forms.ModelForm):
     class Meta:
         model = Car
-        fields = ['make', 'model', 'year', 'license_plate', 'notes']
+        fields = ['make', 'model', 'year', 'color', 'notes']
 
 class CarStayForm(forms.ModelForm):
     class Meta:

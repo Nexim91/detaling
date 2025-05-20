@@ -7,6 +7,7 @@ class UserProfile(models.Model):
     last_name = models.CharField("Фамилия", max_length=30)
     phone = models.CharField("Телефон", max_length=20, blank=True, null=True)
     email = models.EmailField("Email", blank=True, null=True)
+    chat_id = models.BigIntegerField("Chat ID", unique=True, null=True, blank=True)
 
     def __str__(self):
         return f"{self.last_name} {self.first_name}"
@@ -16,11 +17,11 @@ class Car(models.Model):
     make = models.CharField("Марка", max_length=50)
     model = models.CharField("Модель", max_length=50)
     year = models.PositiveIntegerField("Год выпуска")
-    license_plate = models.CharField("Госномер", max_length=20)
+    color = models.CharField("Цвет", max_length=30)
     notes = models.TextField("Примечания", blank=True, null=True)
 
     def __str__(self):
-        return f"{self.make} {self.model} ({self.license_plate})"
+        return f"{self.make} {self.model} ({self.color})"
 
 class CarStay(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name='stays')

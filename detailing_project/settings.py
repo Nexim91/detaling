@@ -1,4 +1,3 @@
-
 """
 Django settings for detailing_project project.
 
@@ -148,6 +147,10 @@ LOGOUT_REDIRECT_URL = '/'
 # Telegram bot settings for order notifications
 TELEGRAM_BOT_TOKEN = "5751249143:AAENKFBEpbazywwRhjtU-TQURPq0VxDH9ps"
 TELEGRAM_CHAT_ID = "1082586050"
+
+# For compatibility with regbot/telegram.py notification logic
+TELEGRAM_NOTIFY_BOT_TOKEN = TELEGRAM_BOT_TOKEN
+TELEGRAM_NOTIFY_CHAT_ID = TELEGRAM_CHAT_ID
 
 # Separate token for regbot Telegram bot
 REGBOT_TELEGRAM_BOT_TOKEN = "5182634283:AAHhStHLiYRAXwHMFwjw4D1cLuX578gFaTk"
