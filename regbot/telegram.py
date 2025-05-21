@@ -275,8 +275,7 @@ def handle_update(update):
                         {"text": "Просмотр услуг", "callback_data": "menu_services"}
                     ],
                     [
-                        {"text": "Отмена", "callback_data": "menu_cancel"},
-                        {"text": "Выйти из профиля", "callback_data": "menu_logout"}
+                        {"text": "Отмена", "callback_data": "menu_cancel"}
                     ],
                     [
                         {"text": "Помощь", "callback_data": "menu_help"}
@@ -302,15 +301,14 @@ def handle_update(update):
                     {"text": "Просмотр услуг", "callback_data": "menu_services"}
                 ],
                 [
-                    {"text": "Отмена", "callback_data": "menu_cancel"},
-                    {"text": "Выйти из профиля", "callback_data": "menu_logout"}
+                    {"text": "Отмена", "callback_data": "menu_cancel"}
                 ],
                 [
                     {"text": "Помощь", "callback_data": "menu_help"}
                 ]
             ]
         }
-        send_message(chat_id, "Добро пожаловать! Выберите действие:", reply_markup=keyboard)
+        send_message(chat_id, "🚀 Добро пожаловать в CosmoDetailing – Детейлинг будущего! 🌌", reply_markup=keyboard)
         user_states.pop(chat_id, None)
         return
 
@@ -322,8 +320,7 @@ def handle_update(update):
                     {"text": "Просмотр услуг", "callback_data": "menu_services"}
                 ],
                 [
-                    {"text": "Отмена", "callback_data": "menu_cancel"},
-                    {"text": "Выйти из профиля", "callback_data": "menu_logout"}
+                    {"text": "Отмена", "callback_data": "menu_cancel"}
                 ],
                 [
                     {"text": "Помощь", "callback_data": "menu_help"}
